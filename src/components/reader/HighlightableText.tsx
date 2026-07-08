@@ -77,7 +77,7 @@ export function HighlightableText({
 
   const handleClick = (e: React.MouseEvent) => {
     if (!modoProfessor) return;
-    if (ferramentaAtiva === 'caneta') return; // Caneta strokes are handled by DrawingCanvas
+    if (ferramentaAtiva === 'caneta' || ferramentaAtiva === 'borracha') return; // Caneta/Borracha actions handled by DrawingCanvas
     
     const target = e.target as HTMLElement;
     // Ignora o clique se for num link de versículo ou botão de balão existente
@@ -107,7 +107,7 @@ export function HighlightableText({
       onClick={handleClick}
       className={clsx(
         'leading-relaxed transition-colors',
-        modoProfessor && ferramentaAtiva !== 'caneta' && (ferramentaAtiva || minhas.length > 0) && 'cursor-pointer hover:opacity-80',
+        modoProfessor && ferramentaAtiva !== 'caneta' && ferramentaAtiva !== 'borracha' && (ferramentaAtiva || minhas.length > 0) && 'cursor-pointer hover:opacity-80',
         className
       )}
     >

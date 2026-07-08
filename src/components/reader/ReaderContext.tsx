@@ -28,8 +28,8 @@ export interface ReaderCtx {
   responderQuiz: (indice: number, escolha: string, correta: boolean) => void;
   respostasQuiz: Record<number, { escolha: string; correta: boolean }>;
   /** ferramenta ativa no modo professor */
-  ferramentaAtiva: CorMarcaTexto | 'caneta' | null;
-  setFerramentaAtiva: (ferramenta: CorMarcaTexto | 'caneta' | null) => void;
+  ferramentaAtiva: CorMarcaTexto | 'caneta' | 'borracha' | null;
+  setFerramentaAtiva: (ferramenta: CorMarcaTexto | 'caneta' | 'borracha' | null) => void;
 }
 
 export const ReaderContext = createContext<ReaderCtx>({

@@ -84,6 +84,23 @@ export function ProfessorSelecao() {
               Caneta
             </button>
 
+            <button
+              type="button"
+              onClick={() => setFerramentaAtiva(ferramentaAtiva === 'borracha' ? null : 'borracha')}
+              className={clsx(
+                'flex h-9 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold transition-transform active:scale-95 sm:h-8',
+                ferramentaAtiva === 'borracha'
+                  ? 'bg-ink text-bg shadow-lg'
+                  : 'border border-line bg-bg-2/50 text-ink hover:bg-surface'
+              )}
+              aria-label="Ferramenta: Borracha (apagar desenhos)"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                <path d="M226.83,74.83l-45.66-45.66a16,16,0,0,0-22.63,0L22.63,165.05a16,16,0,0,0,0,22.62l45.66,45.66a16,16,0,0,0,22.63,0L180.59,143.66l46.24-46.24A16,16,0,0,0,226.83,74.83ZM79.6,222.05L33.94,176.39l67.88-67.88L147.48,154.17Zm135.91-135.91L169.27,132.38,123.61,86.72l45.66-45.66,46.24,46.24Z"></path>
+              </svg>
+              Borracha
+            </button>
+
             <AnimatePresence>
               {ferramentaAtiva === 'caneta' && desenhos.length > 0 && (
                 <motion.button

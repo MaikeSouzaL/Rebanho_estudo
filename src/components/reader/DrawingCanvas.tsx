@@ -10,6 +10,7 @@ export function DrawingCanvas({ blocoId }: { blocoId: string }) {
   // Apenas desenhos do bloco atual
   const meusDesenhos = desenhos.filter(d => d.blocoId === blocoId);
   const isCaneta = modoProfessor && ferramentaAtiva === 'caneta';
+  const isBorracha = modoProfessor && ferramentaAtiva === 'borracha';
 
   const [isDrawing, setIsDrawing] = useState(false);
   const [currentPath, setCurrentPath] = useState<{x: number, y: number}[]>([]);
@@ -96,9 +97,9 @@ export function DrawingCanvas({ blocoId }: { blocoId: string }) {
         {meusDesenhos.map(d => (
           <g 
             key={d.id} 
-            className={isCaneta ? 'pointer-events-auto cursor-pointer group' : ''}
-            onClick={() => isCaneta && removerDesenho(d.id)}
-            style={{ pointerEvents: isCaneta ? 'auto' : 'none' }}
+            className={isCaneta || isBorracha ? 'pointer-events-auto cursor-pointer group' : ''}
+            onClick={() => (isCaneta || isBorracha) && removerDesenho(d.id)}
+            style={{ pointerEvents: isCaneta || isBorracha ? 'auto' : 'none' }}
           >
             {/* Transparent thicker path for easier tapping on mobile */}
             <path 

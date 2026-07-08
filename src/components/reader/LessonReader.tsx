@@ -53,7 +53,7 @@ export function LessonReader({
   const [anotacoes, setAnotacoes] = useState<Anotacao[]>([]);
   const [desenhos, setDesenhos] = useState<Desenho[]>([]);
   const [modoProfessor, setModoProfessor] = useState(false);
-  const [ferramentaAtiva, setFerramentaAtiva] = useState<CorMarcaTexto | 'caneta' | null>(null);
+  const [ferramentaAtiva, setFerramentaAtiva] = useState<CorMarcaTexto | 'caneta' | 'borracha' | null>(null);
   const [celebrar, setCelebrar] = useState(false);
   const [ganhoXp, setGanhoXp] = useState<number | null>(null);
   const [editorBalao, setEditorBalao] = useState<{ anotacao: Anotacao; trecho: string } | null>(null);
