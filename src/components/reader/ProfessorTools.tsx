@@ -71,9 +71,9 @@ export function ProfessorSelecao() {
               type="button"
               onClick={() => setFerramentaAtiva(ferramentaAtiva === 'caneta' ? null : 'caneta')}
               className={clsx(
-                'flex h-9 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold transition-transform active:scale-95 sm:h-8',
+                'flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold transition-transform active:scale-95 sm:h-8 sm:w-8',
                 ferramentaAtiva === 'caneta'
-                  ? 'bg-gold text-bg shadow-lg'
+                  ? 'bg-ink text-bg shadow-lg'
                   : 'border border-line bg-bg-2/50 text-ink hover:bg-surface'
               )}
               aria-label="Ferramenta: Caneta (desenho livre)"
@@ -81,14 +81,13 @@ export function ProfessorSelecao() {
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
                 <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31l123.31-123.3A16,16,0,0,0,227.31,73.37ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l12.69-12.69,44.69,44.69Z"></path>
               </svg>
-              Caneta
             </button>
 
             <button
               type="button"
               onClick={() => setFerramentaAtiva(ferramentaAtiva === 'borracha' ? null : 'borracha')}
               className={clsx(
-                'flex h-9 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold transition-transform active:scale-95 sm:h-8',
+                'flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold transition-transform active:scale-95 sm:h-8 sm:w-8',
                 ferramentaAtiva === 'borracha'
                   ? 'bg-ink text-bg shadow-lg'
                   : 'border border-line bg-bg-2/50 text-ink hover:bg-surface'
@@ -98,7 +97,6 @@ export function ProfessorSelecao() {
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
                 <path d="M226.83,74.83l-45.66-45.66a16,16,0,0,0-22.63,0L22.63,165.05a16,16,0,0,0,0,22.62l45.66,45.66a16,16,0,0,0,22.63,0L180.59,143.66l46.24-46.24A16,16,0,0,0,226.83,74.83ZM79.6,222.05L33.94,176.39l67.88-67.88L147.48,154.17Zm135.91-135.91L169.27,132.38,123.61,86.72l45.66-45.66,46.24,46.24Z"></path>
               </svg>
-              Borracha
             </button>
 
             <AnimatePresence>
@@ -106,16 +104,15 @@ export function ProfessorSelecao() {
                 <motion.button
                   initial={{ opacity: 0, width: 0, scale: 0.8 }}
                   animate={{ opacity: 1, width: 'auto', scale: 1 }}
-                  exit={{ opacity: 0, width: 0, scale: 0.8 }}
+                  exit={{ opacity: 0, width: 0, scale: 0.8, padding: 0 }}
                   type="button"
                   onClick={limparDesenhos}
-                  className="flex h-9 items-center gap-1.5 overflow-hidden whitespace-nowrap rounded-full bg-red-500/10 px-3.5 text-sm font-semibold text-red-500 transition-colors hover:bg-red-500/20 active:scale-95 sm:h-8"
+                  className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-red-500/10 text-red-500 transition-colors hover:bg-red-500/20 active:scale-95 sm:h-8 sm:w-8"
                   aria-label="Limpar desenhos da tela"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
                     <path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"></path>
                   </svg>
-                  Limpar Tela
                 </motion.button>
               )}
             </AnimatePresence>

@@ -14,6 +14,7 @@ export function DrawingCanvas({ blocoId }: { blocoId: string }) {
 
   const [isDrawing, setIsDrawing] = useState(false);
   const [currentPath, setCurrentPath] = useState<{x: number, y: number}[]>([]);
+  const [eraserPos, setEraserPos] = useState<{x: number, y: number} | null>(null);
 
   // Para evitar scroll enquanto desenha no mobile
   useEffect(() => {
@@ -21,7 +22,7 @@ export function DrawingCanvas({ blocoId }: { blocoId: string }) {
     const el = containerRef.current;
     
     const blockTouch = (e: TouchEvent) => {
-      if (isCaneta) {
+      if (isCaneta || isBorracha) {
         e.preventDefault(); // Impede o scroll natural do navegador
       }
     };
@@ -55,21 +56,40 @@ export function DrawingCanvas({ blocoId }: { blocoId: string }) {
   };
 
   const handleStart = (e: React.TouchEvent | React.MouseEvent) => {
-    if (!isCaneta) return;
     const pos = getPos(e);
     if (!pos) return;
-    setIsDrawing(true);
-    setCurrentPath([pos]);
+    if (isCaneta) {
+      setIsDrawing(true);
+      setCurrentPath([pos]);
+    } else if (isBorracha) {
+      setEraserPos(pos);
+    }
   };
 
   const handleMove = (e: React.TouchEvent | React.MouseEvent) => {
-    if (!isDrawing || !isCaneta) return;
     const pos = getPos(e);
     if (!pos) return;
-    setCurrentPath(prev => [...prev, pos]);
+
+    if (isBorracha) {
+      setEraserPos(pos);
+      // Fallback para touch: elementFromPoint para apagar enquanto arrasta
+      if ('touches' in e && e.touches.length > 0) {
+        const touch = e.touches[0];
+        const el = document.elementFromPoint(touch.clientX, touch.clientY);
+        const did = el?.getAttribute('data-desenho-id');
+        if (did) removerDesenho(did);
+      }
+    } else if (isCaneta && isDrawing) {
+      setCurrentPath(prev => [...prev, pos]);
+    }
   };
 
   const handleEnd = () => {
+    if (isBorracha) {
+      if (!('touches' in window)) { // On mobile, keeping eraser circle visible is weird after lift, but on desktop we hide it on mouseLeave
+        // setEraserPos(null);
+      }
+    }
     if (!isDrawing || !isCaneta) return;
     setIsDrawing(false);
     if (currentPath.length > 2) {
@@ -83,26 +103,38 @@ export function DrawingCanvas({ blocoId }: { blocoId: string }) {
   return (
     <div 
       ref={containerRef}
-      className={`absolute inset-0 z-10 ${isCaneta ? 'cursor-crosshair touch-none' : 'pointer-events-none'}`}
+      className={`absolute inset-0 z-10 ${isCaneta || isBorracha ? 'touch-none' : 'pointer-events-none'} ${isCaneta ? 'cursor-crosshair' : ''}`}
       onMouseDown={handleStart}
       onMouseMove={handleMove}
       onMouseUp={handleEnd}
-      onMouseLeave={handleEnd}
+      onMouseLeave={() => { handleEnd(); setEraserPos(null); }}
       onTouchStart={handleStart}
       onTouchMove={handleMove}
-      onTouchEnd={handleEnd}
-      onTouchCancel={handleEnd}
+      onTouchEnd={() => { handleEnd(); setEraserPos(null); }}
+      onTouchCancel={() => { handleEnd(); setEraserPos(null); }}
     >
       <svg className="w-full h-full pointer-events-none">
         {meusDesenhos.map(d => (
           <g 
             key={d.id} 
             className={isCaneta || isBorracha ? 'pointer-events-auto cursor-pointer group' : ''}
-            onClick={() => (isCaneta || isBorracha) && removerDesenho(d.id)}
+            onPointerDown={(e) => {
+              if (isCaneta || isBorracha) {
+                e.stopPropagation(); // Evita desenhar sem querer ao apagar
+                removerDesenho(d.id);
+              }
+            }}
             style={{ pointerEvents: isCaneta || isBorracha ? 'auto' : 'none' }}
+            onPointerEnter={(e) => {
+              if (isBorracha && e.buttons > 0) {
+                // Para mouse arrastando
+                removerDesenho(d.id);
+              }
+            }}
           >
             {/* Transparent thicker path for easier tapping on mobile */}
             <path 
+              data-desenho-id={d.id}
               d={d.path}
               stroke="transparent"
               strokeWidth="30"
@@ -112,6 +144,7 @@ export function DrawingCanvas({ blocoId }: { blocoId: string }) {
             />
             {/* Actual visible path */}
             <path 
+              data-desenho-id={d.id}
               d={d.path}
               stroke={d.cor}
               strokeWidth="4"
@@ -131,6 +164,18 @@ export function DrawingCanvas({ blocoId }: { blocoId: string }) {
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
+          />
+        )}
+        {/* Bolinha da Borracha */}
+        {isBorracha && eraserPos && (
+          <circle 
+            cx={eraserPos.x} 
+            cy={eraserPos.y} 
+            r="16" 
+            fill="rgba(239, 68, 68, 0.2)" 
+            stroke="rgb(239, 68, 68)" 
+            strokeWidth="2" 
+            pointerEvents="none"
           />
         )}
       </svg>
