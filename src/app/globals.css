@@ -119,16 +119,16 @@ body {
 
 
 /* Marca-texto do professor — legível sobre fundo escuro e claro */
-mark.hl-amarelo { background: rgba(232, 208, 106, 0.34); box-shadow: 0 0 0 1px rgba(232, 208, 106, 0.12); }
-mark.hl-verde   { background: rgba(127, 199, 154, 0.30); box-shadow: 0 0 0 1px rgba(127, 199, 154, 0.12); }
-mark.hl-azul    { background: rgba(127, 181, 232, 0.30); box-shadow: 0 0 0 1px rgba(127, 181, 232, 0.12); }
-mark.hl-rosa    { background: rgba(232, 154, 181, 0.30); box-shadow: 0 0 0 1px rgba(232, 154, 181, 0.12); }
+mark.hl-amarelo { background: rgba(232, 208, 106, 0.55); box-shadow: 0 0 0 1px rgba(232, 208, 106, 0.30); }
+mark.hl-verde   { background: rgba(127, 199, 154, 0.50); box-shadow: 0 0 0 1px rgba(127, 199, 154, 0.30); }
+mark.hl-azul    { background: rgba(127, 181, 232, 0.50); box-shadow: 0 0 0 1px rgba(127, 181, 232, 0.30); }
+mark.hl-rosa    { background: rgba(232, 154, 181, 0.50); box-shadow: 0 0 0 1px rgba(232, 154, 181, 0.30); }
 mark[class^='hl-'] { color: inherit; }
 
-:root.light mark.hl-amarelo { background: rgba(226, 190, 60, 0.45); }
-:root.light mark.hl-verde   { background: rgba(110, 190, 140, 0.40); }
-:root.light mark.hl-azul    { background: rgba(110, 170, 226, 0.40); }
-:root.light mark.hl-rosa    { background: rgba(226, 140, 170, 0.40); }
+:root.light mark.hl-amarelo { background: rgba(226, 190, 60, 0.70); }
+:root.light mark.hl-verde   { background: rgba(110, 190, 140, 0.65); }
+:root.light mark.hl-azul    { background: rgba(110, 170, 226, 0.65); }
+:root.light mark.hl-rosa    { background: rgba(226, 140, 170, 0.65); }
 
 /* Scrollbar discreta */
 ::-webkit-scrollbar {
