@@ -96,7 +96,7 @@ export function EditorBalao({
   alvo: { anotacao: Anotacao; trecho: string } | null;
   fechar: () => void;
 }) {
-  const { anotacoes, atualizarAnotacao, removerAnotacao } = useReader();
+  const { anotacoes, atualizarAnotacao, removerAnotacao, modoProfessor } = useReader();
   const [rascunho, setRascunho] = useState('');
 
   // anotação "viva" (cor pode mudar enquanto o editor está aberto)
@@ -123,74 +123,106 @@ export function EditorBalao({
             className="fixed inset-0 z-50 bg-black/50"
             onClick={fechar}
           />
-          <motion.div
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
-            transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-            className="fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-2xl border border-b-0 border-line bg-surface p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-glow"
-            role="dialog"
-            aria-label="Anotação do professor"
-          >
-            <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-line sm:hidden" aria-hidden />
-            <div className="mb-3 flex items-center justify-between">
-              <p className="eyebrow">Balão do professor</p>
-              <div className="flex gap-2">
-                {(Object.keys(CORES_MARCA) as CorMarcaTexto[]).map((c) => (
-                  <button
-                    key={c}
-                    type="button"
-                    onClick={() => atualizarAnotacao(viva.id, { cor: c })}
-                    className={clsx(
-                      'h-6 w-6 rounded-full ring-1 ring-black/20 transition-transform hover:scale-110',
-                      CORES_MARCA[c].chip,
-                      viva.cor === c && 'ring-2 ring-gold',
-                    )}
-                    aria-label={`Cor ${CORES_MARCA[c].nome}`}
-                  />
-                ))}
+          {!modoProfessor ? (
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="fixed inset-x-4 bottom-8 z-50 mx-auto max-w-sm rounded-2xl border border-gold/30 bg-surface p-6 shadow-glow sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2"
+              role="dialog"
+              aria-label="Lembrete do professor"
+            >
+              <div className="mb-4 flex items-center gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gold/20 text-gold">
+                  <IconeBalao className="h-4 w-4" />
+                </div>
+                <h3 className="font-serif text-lg font-bold text-ink">Lembrete</h3>
               </div>
-            </div>
-            <p className="mb-3 line-clamp-2 rounded-lg bg-bg-2/60 p-2.5 text-sm italic text-ink-muted">
-              “{alvo.trecho}”
-            </p>
-            <textarea
-              value={rascunho}
-              onChange={(e) => setRascunho(e.target.value)}
-              placeholder="O que você quer lembrar de falar sobre este trecho?"
-              rows={3}
-              autoFocus
-              className="w-full resize-none rounded-xl border border-line bg-bg-2/60 p-3 text-base text-ink placeholder:text-ink-muted/60 focus:border-gold/50 focus:outline-none"
-            />
-            <div className="mt-3 flex items-center justify-between">
+              <p className="mb-4 line-clamp-3 rounded-lg bg-bg-2/60 p-3 text-sm italic text-ink-muted">
+                “{alvo.trecho}”
+              </p>
+              <div className="mb-6 max-h-[40vh] overflow-y-auto whitespace-pre-wrap text-base text-ink">
+                {viva.nota}
+              </div>
               <button
                 type="button"
-                onClick={() => {
-                  removerAnotacao(viva.id);
-                  fechar();
-                }}
-                className="rounded-full px-3 py-2.5 text-sm text-red-300 hover:bg-red-500/10"
+                onClick={fechar}
+                className="w-full rounded-full bg-surface-2 py-3 text-sm font-semibold text-ink transition-colors hover:bg-surface-2/80"
               >
-                Excluir
+                Fechar
               </button>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={fechar}
-                  className="rounded-full border border-line px-4 py-2.5 text-sm text-ink hover:bg-surface-2"
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="button"
-                  onClick={salvar}
-                  className="rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-bg hover:brightness-105"
-                >
-                  Salvar
-                </button>
+            </motion.div>
+          ) : (
+            <motion.div
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 320 }}
+              className="fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-2xl border border-b-0 border-line bg-surface p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-glow"
+              role="dialog"
+              aria-label="Anotação do professor"
+            >
+              <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-line sm:hidden" aria-hidden />
+              <div className="mb-3 flex items-center justify-between">
+                <p className="eyebrow">Balão do professor</p>
+                <div className="flex gap-2">
+                  {(Object.keys(CORES_MARCA) as CorMarcaTexto[]).map((c) => (
+                    <button
+                      key={c}
+                      type="button"
+                      onClick={() => atualizarAnotacao(viva.id, { cor: c })}
+                      className={clsx(
+                        'h-6 w-6 rounded-full ring-1 ring-black/20 transition-transform hover:scale-110',
+                        CORES_MARCA[c].chip,
+                        viva.cor === c && 'ring-2 ring-gold',
+                      )}
+                      aria-label={`Cor ${CORES_MARCA[c].nome}`}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          </motion.div>
+              <p className="mb-3 line-clamp-2 rounded-lg bg-bg-2/60 p-2.5 text-sm italic text-ink-muted">
+                “{alvo.trecho}”
+              </p>
+              <textarea
+                value={rascunho}
+                onChange={(e) => setRascunho(e.target.value)}
+                placeholder="O que você quer lembrar de falar sobre este trecho?"
+                rows={3}
+                autoFocus
+                className="w-full resize-none rounded-xl border border-line bg-bg-2/60 p-3 text-base text-ink placeholder:text-ink-muted/60 focus:border-gold/50 focus:outline-none"
+              />
+              <div className="mt-3 flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => {
+                    removerAnotacao(viva.id);
+                    fechar();
+                  }}
+                  className="rounded-full px-3 py-2.5 text-sm text-red-300 hover:bg-red-500/10"
+                >
+                  Excluir
+                </button>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={fechar}
+                    className="rounded-full border border-line px-4 py-2.5 text-sm text-ink hover:bg-surface-2"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    onClick={salvar}
+                    className="rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-bg hover:brightness-105"
+                  >
+                    Salvar
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
         </>
       )}
     </AnimatePresence>
