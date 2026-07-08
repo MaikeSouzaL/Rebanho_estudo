@@ -93,20 +93,33 @@ export function DrawingCanvas({ blocoId }: { blocoId: string }) {
       onTouchCancel={handleEnd}
     >
       <svg className="w-full h-full pointer-events-none">
-        {/* Renderiza desenhos salvos */}
         {meusDesenhos.map(d => (
-          <path 
-            key={d.id}
-            d={d.path}
-            stroke={d.cor}
-            strokeWidth="4"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className={isCaneta ? 'pointer-events-auto cursor-pointer hover:stroke-red-500 transition-colors' : ''}
+          <g 
+            key={d.id} 
+            className={isCaneta ? 'pointer-events-auto cursor-pointer group' : ''}
             onClick={() => isCaneta && removerDesenho(d.id)}
-            style={{ pointerEvents: isCaneta ? 'stroke' : 'none' }}
-          />
+            style={{ pointerEvents: isCaneta ? 'auto' : 'none' }}
+          >
+            {/* Transparent thicker path for easier tapping on mobile */}
+            <path 
+              d={d.path}
+              stroke="transparent"
+              strokeWidth="30"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            {/* Actual visible path */}
+            <path 
+              d={d.path}
+              stroke={d.cor}
+              strokeWidth="4"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="transition-colors group-hover:stroke-red-500"
+            />
+          </g>
         ))}
         {/* Renderiza desenho em andamento */}
         {currentPath.length > 0 && (

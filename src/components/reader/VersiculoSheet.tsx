@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { RefParsed } from '@/lib/refs';
 import { NOME_TRADUCAO, resolverReferencia, type VersiculoResolvido } from '@/lib/biblia';
+import { gerarNarracao } from '@/lib/narrador';
 
 /**
  * Bottom sheet de versículo: tocar em "At 11.26" abre o texto AQUI,
@@ -19,12 +20,21 @@ export function VersiculoSheet({
 }) {
   const [estado, setEstado] = useState<'carregando' | 'ok' | 'indisponivel'>('carregando');
   const [versiculos, setVersiculos] = useState<VersiculoResolvido[]>([]);
-  const [leitura, setLeitura] = useState<'parado' | 'tocando'>('parado');
+  const [leitura, setLeitura] = useState<'parado' | 'carregando_audio' | 'tocando'>('parado');
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     if (!referencia) {
       if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
         window.speechSynthesis.cancel();
+      }
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = '';
+      }
+      if (abortRef.current) {
+        abortRef.current.abort();
       }
       setLeitura('parado');
       return;
@@ -45,11 +55,19 @@ export function VersiculoSheet({
     };
   }, [referencia]);
 
-  const alternarLeitura = () => {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+  const alternarLeitura = async () => {
+    if (typeof window === 'undefined') return;
     
-    if (leitura === 'tocando') {
-      window.speechSynthesis.cancel();
+    // Parar leitura atual
+    if (leitura === 'tocando' || leitura === 'carregando_audio') {
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = '';
+      }
+      if (abortRef.current) {
+        abortRef.current.abort();
+      }
       setLeitura('parado');
       return;
     }
@@ -57,15 +75,51 @@ export function VersiculoSheet({
     const textoInteiro = versiculos.map((v) => v.texto).join(' ');
     if (!textoInteiro) return;
 
-    const u = new SpeechSynthesisUtterance(textoInteiro);
-    u.lang = 'pt-BR';
-    u.rate = 0.95;
-    u.onend = () => setLeitura('parado');
-    u.onerror = () => setLeitura('parado');
+    setLeitura('carregando_audio');
     
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(u);
-    setLeitura('tocando');
+    abortRef.current = new AbortController();
+    
+    try {
+      // 1. Tentar gerar com IA
+      const blob = await gerarNarracao(textoInteiro, abortRef.current.signal);
+      
+      if (blob) {
+        const url = URL.createObjectURL(blob);
+        const a = new Audio(url);
+        audioRef.current = a;
+        a.onended = () => {
+          setLeitura('parado');
+          URL.revokeObjectURL(url);
+        };
+        a.onerror = () => {
+          setLeitura('parado');
+          URL.revokeObjectURL(url);
+        };
+        await a.play();
+        setLeitura('tocando');
+        return;
+      }
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') {
+        return; // Foi cancelado pelo usuário
+      }
+      console.warn('Falha na IA, caindo para nativo', e);
+    }
+
+    // 2. Fallback para TTS Nativo
+    if ('speechSynthesis' in window) {
+      const u = new SpeechSynthesisUtterance(textoInteiro);
+      u.lang = 'pt-BR';
+      u.rate = 0.95;
+      u.onend = () => setLeitura('parado');
+      u.onerror = () => setLeitura('parado');
+      
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+      setLeitura('tocando');
+    } else {
+      setLeitura('parado');
+    }
   };
 
   return (
@@ -107,14 +161,17 @@ export function VersiculoSheet({
                 type="button"
                 onClick={alternarLeitura}
                 disabled={estado !== 'ok'}
-                aria-pressed={leitura === 'tocando'}
-                title={leitura === 'tocando' ? 'Parar narração' : 'Ouvir versículo'}
-                className={`flex h-9 w-9 items-center justify-center rounded-full border transition-colors disabled:opacity-50 ${
-                  leitura === 'tocando'
+                aria-pressed={leitura !== 'parado'}
+                title={leitura !== 'parado' ? 'Parar narração' : 'Ouvir versículo'}
+                className={`flex h-9 w-9 items-center justify-center rounded-full border transition-colors disabled:opacity-50 relative ${
+                  leitura !== 'parado'
                     ? 'border-gold bg-gold text-bg'
                     : 'border-line text-ink-muted hover:bg-surface hover:text-ink'
                 }`}
               >
+                {leitura === 'carregando_audio' && (
+                   <span className="absolute inset-0 rounded-full border-2 border-transparent border-t-bg animate-spin" />
+                )}
                 {leitura === 'tocando' ? '■' : '🔊'}
               </button>
             </header>
