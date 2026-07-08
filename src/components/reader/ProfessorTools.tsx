@@ -40,117 +40,43 @@ interface SelecaoAtiva {
 }
 
 export function ProfessorSelecao() {
-  const { modoProfessor, criarAnotacao, abrirEditor } = useReader();
-  const [sel, setSel] = useState<SelecaoAtiva | null>(null);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    if (!modoProfessor) {
-      setSel(null);
-      return;
-    }
-    const avaliar = () => {
-      const s = window.getSelection();
-      if (!s || s.isCollapsed || s.rangeCount === 0) {
-        setSel(null);
-        return;
-      }
-      const range = s.getRangeAt(0);
-      const el = (
-        range.startContainer instanceof Element
-          ? range.startContainer
-          : range.startContainer.parentElement
-      )?.closest<HTMLElement>('[data-parakey]');
-      const elFim = (
-        range.endContainer instanceof Element
-          ? range.endContainer
-          : range.endContainer.parentElement
-      )?.closest<HTMLElement>('[data-parakey]');
-      // precisa começar e terminar no MESMO parágrafo anotável
-      if (!el || el !== elFim) {
-        setSel(null);
-        return;
-      }
-      let ini = offsetNoElemento(el, range.startContainer, range.startOffset);
-      let fim = offsetNoElemento(el, range.endContainer, range.endOffset);
-      if (fim < ini) [ini, fim] = [fim, ini];
-      if (fim - ini < 1) {
-        setSel(null);
-        return;
-      }
-      const rect = range.getBoundingClientRect();
-      const abaixo = rect.top < 96; // sem espaço acima → toolbar abaixo
-      setSel({
-        paraKey: el.dataset.parakey!,
-        texto: el.textContent ?? '',
-        inicio: ini,
-        fim,
-        // clamp = metade da largura da toolbar desktop (~250px) + margem
-        x: Math.min(Math.max(rect.left + rect.width / 2, 150), window.innerWidth - 150),
-        y: abaixo ? rect.bottom : rect.top,
-        abaixo,
-        mobile: window.matchMedia('(max-width: 640px)').matches,
-      });
-    };
-    const onChange = () => {
-      if (timer.current) clearTimeout(timer.current);
-      // debounce: espera o usuário soltar/ajustar os pegadores
-      timer.current = setTimeout(avaliar, 200);
-    };
-    document.addEventListener('selectionchange', onChange);
-    return () => {
-      document.removeEventListener('selectionchange', onChange);
-      if (timer.current) clearTimeout(timer.current);
-    };
-  }, [modoProfessor]);
-
-  const agir = (cor: CorMarcaTexto, comBalao: boolean) => {
-    if (!sel) return;
-    const criada = criarAnotacao(sel.paraKey, sel.inicio, sel.fim, cor, '');
-    const trecho = sel.texto.slice(sel.inicio, sel.fim);
-    window.getSelection()?.removeAllRanges();
-    setSel(null);
-    if (comBalao && criada) abrirEditor(criada, trecho);
-  };
+  const { modoProfessor, ferramentaAtiva, setFerramentaAtiva } = useReader();
 
   return (
     <AnimatePresence>
-      {sel && modoProfessor && (
+      {modoProfessor && (
         <motion.div
-          initial={{ opacity: 0, y: sel.mobile ? 16 : sel.abaixo ? -6 : 6, scale: 0.96 }}
+          initial={{ opacity: 0, y: 16, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.96 }}
+          exit={{ opacity: 0, y: 16, scale: 0.96 }}
           transition={{ duration: 0.15 }}
-          className={clsx(
-            'z-50',
-            sel.mobile
-              ? // celular: barra ancorada BEM acima da navegação (longe do "Voltar")
-                'fixed inset-x-0 bottom-[108px] flex justify-center px-3'
-              : clsx('fixed -translate-x-1/2', !sel.abaixo && '-translate-y-full'),
-          )}
-          style={sel.mobile ? undefined : { left: sel.x, top: sel.abaixo ? sel.y + 14 : sel.y - 12 }}
-          // não deixar o toque na toolbar desfazer a seleção
-          onPointerDown={(e) => e.preventDefault()}
+          className="fixed inset-x-0 bottom-[108px] z-50 flex justify-center px-3"
         >
           <div className="flex items-center gap-2 rounded-full border border-line bg-surface-2 px-3 py-2.5 shadow-glow">
             {(Object.keys(CORES_MARCA) as CorMarcaTexto[]).map((c) => (
               <button
                 key={c}
                 type="button"
-                onClick={() => agir(c, false)}
+                onClick={() => setFerramentaAtiva(ferramentaAtiva === c ? null : c)}
                 className={clsx(
                   'h-8 w-8 rounded-full ring-1 ring-black/20 transition-transform active:scale-90 sm:h-7 sm:w-7',
                   CORES_MARCA[c].chip,
+                  ferramentaAtiva === c ? 'scale-110 ring-2 ring-white shadow-lg' : ''
                 )}
-                aria-label={`Destacar em ${CORES_MARCA[c].nome.toLowerCase()}`}
+                aria-label={`Ferramenta: ${CORES_MARCA[c].nome}`}
               />
             ))}
             <span className="mx-0.5 h-6 w-px bg-line" aria-hidden />
             <button
               type="button"
-              onClick={() => agir('amarelo', true)}
-              className="flex h-9 items-center gap-1.5 rounded-full bg-gold px-3.5 text-sm font-semibold text-bg transition-transform active:scale-95 sm:h-8"
-              aria-label="Destacar e escrever um lembrete"
+              onClick={() => setFerramentaAtiva(ferramentaAtiva === 'balao' ? null : 'balao')}
+              className={clsx(
+                'flex h-9 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold transition-transform active:scale-95 sm:h-8',
+                ferramentaAtiva === 'balao'
+                  ? 'bg-gold text-bg shadow-lg'
+                  : 'border border-line bg-bg-2/50 text-ink hover:bg-surface'
+              )}
+              aria-label="Ferramenta: Balão de anotação"
             >
               <IconeBalao className="h-4 w-4" /> Balão
             </button>

@@ -22,6 +22,9 @@ export interface ReaderCtx {
   /** registra resposta do quiz (1ª tentativa conta ponto) */
   responderQuiz: (indice: number, escolha: string, correta: boolean) => void;
   respostasQuiz: Record<number, { escolha: string; correta: boolean }>;
+  /** ferramenta ativa no modo professor */
+  ferramentaAtiva: CorMarcaTexto | 'balao' | null;
+  setFerramentaAtiva: (ferramenta: CorMarcaTexto | 'balao' | null) => void;
 }
 
 export const ReaderContext = createContext<ReaderCtx>({
@@ -34,6 +37,8 @@ export const ReaderContext = createContext<ReaderCtx>({
   abrirVersiculo: () => {},
   responderQuiz: () => {},
   respostasQuiz: {},
+  ferramentaAtiva: null,
+  setFerramentaAtiva: () => {},
 });
 
 export function useReader(): ReaderCtx {

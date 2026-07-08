@@ -116,19 +116,7 @@ body {
   text-shadow: 0 1px 12px rgba(4, 16, 29, 0.8), 0 1px 3px rgba(4, 16, 29, 0.6);
 }
 
-/* Seleção de texto no Modo Professor — confortável também no celular:
-   mantém a seleção nativa (toque longo + pegadores) e silencia o menu
-   de copiar do iOS para a nossa toolbar assumir. */
-.prof-select {
-  -webkit-user-select: text;
-  user-select: text;
-  -webkit-touch-callout: none;
-  cursor: text;
-}
-.prof-select::selection,
-.prof-select *::selection {
-  background: rgba(201, 162, 75, 0.4);
-}
+
 
 /* Marca-texto do professor — legível sobre fundo escuro e claro */
 mark.hl-amarelo { background: rgba(232, 208, 106, 0.34); box-shadow: 0 0 0 1px rgba(232, 208, 106, 0.12); }

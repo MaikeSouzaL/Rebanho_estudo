@@ -72,8 +72,38 @@ export function HighlightableText({
   as?: 'p' | 'blockquote';
   className?: string;
 }) {
-  const { modoProfessor, anotacoes, abrirEditor, abrirVersiculo } = useReader();
+  const { modoProfessor, anotacoes, abrirEditor, abrirVersiculo, ferramentaAtiva, criarAnotacao, removerAnotacao } = useReader();
   const ref = useRef<HTMLParagraphElement | HTMLQuoteElement | null>(null);
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (!modoProfessor || !ferramentaAtiva) return;
+    
+    const target = e.target as HTMLElement;
+    // Ignora o clique se for num link de versículo ou botão de balão existente
+    if (target.closest('button')) return;
+
+    const minhas = anotacoes.filter((a) => a.paraKey === paraKey);
+    
+    if (ferramentaAtiva === 'balao') {
+      if (minhas.length > 0) {
+        abrirEditor(minhas[0], texto);
+      } else {
+        const nova = criarAnotacao(paraKey, 0, texto.length, 'amarelo', '');
+        if (nova) abrirEditor(nova, texto);
+      }
+    } else {
+      const ehMesmaCor = 
+        minhas.length === 1 && 
+        minhas[0].cor === ferramentaAtiva && 
+        minhas[0].inicio === 0 && 
+        minhas[0].fim === texto.length;
+        
+      minhas.forEach((a) => removerAnotacao(a.id));
+      if (!ehMesmaCor) {
+        criarAnotacao(paraKey, 0, texto.length, ferramentaAtiva, '');
+      }
+    }
+  };
 
   const minhas = anotacoes.filter((a) => a.paraKey === paraKey);
   const frags = fragmentar(texto.length, minhas);
@@ -83,7 +113,12 @@ export function HighlightableText({
     <Tag
       ref={ref as React.RefObject<HTMLParagraphElement & HTMLQuoteElement>}
       data-parakey={paraKey}
-      className={clsx('leading-relaxed', modoProfessor && 'prof-select', className)}
+      onClick={handleClick}
+      className={clsx(
+        'leading-relaxed transition-colors',
+        modoProfessor && ferramentaAtiva && 'cursor-pointer hover:opacity-80',
+        className
+      )}
     >
       {frags.map((f, i) => {
         const trecho = texto.slice(f.inicio, f.fim);

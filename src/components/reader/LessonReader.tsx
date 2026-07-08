@@ -47,6 +47,7 @@ export function LessonReader({
   const [progresso, setProgresso] = useState<ProgressoLicao>(() => progressoVazio(id));
   const [anotacoes, setAnotacoes] = useState<Anotacao[]>([]);
   const [modoProfessor, setModoProfessor] = useState(false);
+  const [ferramentaAtiva, setFerramentaAtiva] = useState<CorMarcaTexto | 'balao' | null>(null);
   const [celebrar, setCelebrar] = useState(false);
   const [ganhoXp, setGanhoXp] = useState<number | null>(null);
   const [editorBalao, setEditorBalao] = useState<{ anotacao: Anotacao; trecho: string } | null>(null);
@@ -288,6 +289,7 @@ export function LessonReader({
     const novo = !modoProfessor;
     setModoProfessor(novo);
     salvarModoProfessor(novo);
+    if (!novo) setFerramentaAtiva(null);
   };
 
   const quizTotal = blocos.find((b) => b.tipo === 'revisao');
@@ -307,6 +309,8 @@ export function LessonReader({
         abrirVersiculo,
         responderQuiz,
         respostasQuiz: progresso.quiz,
+        ferramentaAtiva,
+        setFerramentaAtiva,
       }}
     >
       <div className="flex h-[100dvh] flex-col bg-gradient-to-b from-bg to-bg-2">
@@ -408,7 +412,7 @@ export function LessonReader({
               exit={{ height: 0, opacity: 0 }}
               className="overflow-hidden border-b border-gold/20 bg-gold/10 px-4 py-0 text-center text-xs text-gold-soft sm:px-6 [&:not(:empty)]:py-1.5"
             >
-              Selecione um trecho do texto para usar o marca-texto ou criar um balão de anotação.
+              Selecione uma cor abaixo e toque em um parágrafo para destacá-lo inteiro, ou use o balão para fazer anotações.
             </motion.p>
           )}
         </AnimatePresence>
