@@ -1,0 +1,277 @@
+{
+  "id": "licao-01",
+  "numero": 1,
+  "titulo": "O chamado para os gentios",
+  "subtitulo": null,
+  "referenciaBase": "Atos 13.1-12",
+  "tempoEstimadoMin": 45,
+  "status": "novo",
+  "capa": {
+    "imagem": "licao-01/capa.webp",
+    "tema": "Missão aos gentios"
+  },
+
+  "textoAureo": {
+    "texto": "E, servindo eles ao Senhor e jejuando, disse o Espírito Santo: apartai-me a Barnabé e a Saulo para a obra a que os tenho chamado.",
+    "referencia": "At 13.2"
+  },
+
+  "verdadePratica": "Quando a igreja ouve o Espírito, o Evangelho avança e vidas são alcançadas para a glória de Deus.",
+
+  "objetivos": [
+    "Apresentar o contexto histórico e espiritual da igreja de Antioquia e sua missão aos gentios;",
+    "Conduzir o aluno à reflexão sobre a atuação do Espírito Santo na condução da obra missionária e no envio dos obreiros;",
+    "Aplicar os princípios da igreja de Antioquia à vida da igreja local, assumindo a missão cristã como identidade e compromisso."
+  ],
+
+  "leituraBiblica": {
+    "referencia": "Atos 13.1-12",
+    "versiculos": [
+      { "numero": 1, "texto": "Na igreja que estava em Antioquia havia alguns profetas e doutores, a saber: Barnabé, e Simeão, chamado Níger, e Lúcio, cireneu, e Manaém, que fora criado com Herodes, o tetrarca, e Saulo." },
+      { "numero": 2, "texto": "E, servindo eles ao Senhor e jejuando, disse o Espírito Santo: Apartai-me a Barnabé e a Saulo para a obra a que os tenho chamado." },
+      { "numero": 3, "texto": "Então, jejuando, e orando, e pondo sobre eles as mãos, os despediram." },
+      { "numero": 4, "texto": "E assim estes, enviados pelo Espírito Santo, desceram a Selêucia e dali navegaram para Chipre." },
+      { "numero": 5, "texto": "E, chegados a Salamina, anunciavam a palavra de Deus nas sinagogas dos judeus; e tinham também a João como cooperador." },
+      { "numero": 6, "texto": "E, havendo atravessado a ilha até Pafos, acharam um certo judeu, mágico, falso profeta, chamado Barjesus," },
+      { "numero": 7, "texto": "o qual estava com o procônsul Sérgio Paulo, varão prudente. Este, chamando a si Barnabé e Saulo, procurava muito ouvir a palavra de Deus." },
+      { "numero": 8, "texto": "Mas resistia-lhes Elimas, o encantador (porque assim se interpreta o seu nome), procurando apartar da fé o procônsul." },
+      { "numero": 9, "texto": "Todavia, Saulo, que também se chama Paulo, cheio do Espírito Santo e fixando os olhos nele, disse:" },
+      { "numero": 10, "texto": "Ó filho do diabo, cheio de todo o engano e de toda a malícia, inimigo de toda a justiça, não cessarás de perturbar os retos caminhos do Senhor?" },
+      { "numero": 11, "texto": "Eis aí, pois, agora, contra ti a mão do Senhor, e ficarás cego, sem ver o sol por algum tempo. No mesmo instante, a escuridão e as trevas caíram sobre ele, e, andando à roda, buscava a quem o guiasse pela mão." },
+      { "numero": 12, "texto": "Então, o procônsul, vendo o que havia acontecido, creu, maravilhado da doutrina do Senhor." }
+    ]
+  },
+
+  "introducao": [
+    "Lucas registra o cumprimento progressivo da promessa de Jesus em Atos 1.8: o Evangelho alcançaria Jerusalém, Judeia, Samaria e chegaria aos confins da Terra. Os capítulos 13 a 28 marcam a grande virada da narrativa, quando o foco deixa de ser Jerusalém e passa a Antioquia.",
+    "É dessa igreja, caracterizada por diversidade, sensibilidade espiritual e prática missionária madura, que o Espírito Santo convoca Paulo e Barnabé para a evangelização dos gentios. A partir desse ponto, o ministério de Paulo torna-se central, e o Espírito é mostrado como o verdadeiro condutor da expansão cristã.",
+    "A Missão Gentílica nasce, portanto, não como estratégia humana, mas como resposta ao chamado direto do Espírito para alcançar as nações."
+  ],
+
+  "imagensIntroducao": [
+    { "src": "licao-01/intro-a-mapa.webp", "apos": 0, "alt": "Mapa da viagem dos discípulos de Jerusalém a Antioquia" },
+    { "src": "licao-01/intro-b-jerusalem.webp", "apos": 0, "alt": "Jerusalém, Judeia e Samaria" },
+    { "src": "licao-01/intro-c-pregacao.webp", "apos": 1, "alt": "Pregação do Evangelho nas ruas" },
+    { "src": "licao-01/intro-d-dialogo.webp", "apos": 1, "alt": "Diálogo sobre a Palavra na cidade" },
+    { "src": "licao-01/intro-e-nacoes.webp", "apos": 2, "alt": "O chamado para alcançar as nações" }
+  ],
+
+  "capitulos": [
+    {
+      "numeroRomano": "I",
+      "titulo": "O NASCIMENTO DA MISSÃO GENTÍLICA",
+      "subtopicos": [
+        {
+          "codigo": "I.1",
+          "titulo": "Antioquia: um centro escolhido por Deus (v.1).",
+          "paragrafos": [
+            "Fundada por Seleuco Nicátor em 300 a.C., Antioquia da Síria tornou-se a terceira maior cidade do Império Romano, atrás apenas de Roma e Alexandria.",
+            "Culturalmente greco-helenista, abrigava significativa população judaica e exercia forte influência intelectual e comercial, contando com o porto de Selêucia (At 13.4). Foi ali que os discípulos foram chamados “cristãos” pela primeira vez (At 11.26).",
+            "Não por acaso, Deus escolheu Antioquia como base da missão gentílica, transformando aquela igreja em um centro de envio para as nações — uma verdadeira base missionária de envio às nações."
+          ],
+          "versiculosDestaque": [
+            { "referencia": "At 13.4", "texto": null },
+            { "referencia": "At 11.26", "texto": null }
+          ],
+          "imagens": [
+            { "src": "licao-01/i1-antioquia.webp", "apos": 1, "alt": "Vista aérea de Antioquia da Síria" },
+            { "src": "licao-01/i1-porto.webp", "apos": 1, "alt": "Movimento no porto de Antioquia" },
+            { "src": "licao-01/i1-navios.webp", "apos": 2, "alt": "Navios no porto de Selêucia" }
+          ]
+        },
+        {
+          "codigo": "I.2",
+          "titulo": "Profetas e doutores servindo ao Senhor (vv.1,2).",
+          "paragrafos": [
+            "A liderança local reunia profetas e doutores (mestres), ministérios que, após o período apostólico, tornaram-se pilares da edificação da igreja (1Co 12.28).",
+            "Os profetas exortavam mediante inspiração direta; os mestres instruíam com base nas Escrituras e na tradição dos ensinos de Jesus. Durante o serviço ao Senhor, marcado por oração e jejum, o Espírito falou.",
+            "A disposição desses líderes em buscar a vontade divina revela uma comunidade madura, centrada em Deus e apta a discernir o propósito do Espírito para além das necessidades locais."
+          ],
+          "versiculosDestaque": [
+            { "referencia": "1Co 12.28", "texto": "A uns estabeleceu Deus na igreja, primeiramente, apóstolos; em segundo lugar, profetas; em terceiro lugar, mestres; depois, operadores de milagres; depois, dons de curar, socorros, governos, variedades de línguas." }
+          ],
+          "imagens": [
+            { "src": "licao-01/i2-profetas-doutores.webp", "apos": 1, "alt": "Profetas e mestres ensinando a igreja" },
+            { "src": "licao-01/i2-oracao.webp", "apos": 2, "alt": "Líderes em oração e jejum" }
+          ]
+        },
+        {
+          "codigo": "I.3",
+          "titulo": "A separação de Paulo e Barnabé (vv.2,3).",
+          "paragrafos": [
+            "O Espírito Santo ordenou: “Apartai-me a Barnabé e a Saulo para a obra a que os tenho chamado”.",
+            "A igreja respondeu com jejum, oração e imposição de mãos, reconhecendo o chamado divino e enviando seus melhores obreiros.",
+            "Esse ato inaugura um novo momento da história cristã: a missão aos gentios é assumida oficialmente pela igreja.",
+            "A obediência da congregação demonstra que a comunidade local é parte ativa da vocação missionária e que o envio deve ser sempre acompanhado de intercessão, consagração e dependência do Espírito."
+          ],
+          "versiculosDestaque": [
+            { "referencia": "At 13.2", "texto": null }
+          ],
+          "imagens": [
+            { "src": "licao-01/i3-separacao.webp", "apos": 1, "alt": "Imposição de mãos sobre Barnabé e Saulo" },
+            { "src": "licao-01/i3-envio-luz.webp", "apos": 1, "alt": "A igreja envia os obreiros" },
+            { "src": "licao-01/i3-igreja-envia.webp", "apos": 3, "alt": "A congregação intercede pelos enviados" },
+            { "src": "licao-01/i3-consagracao.webp", "apos": 3, "alt": "Consagração dos missionários" }
+          ]
+        }
+      ]
+    },
+    {
+      "numeroRomano": "II",
+      "titulo": "O ESPÍRITO SANTO E A OBRA MISSIONÁRIA",
+      "subtopicos": [
+        {
+          "codigo": "II.1",
+          "titulo": "O Espírito que conduz a missão.",
+          "paragrafos": [
+            "O Livro de Atos pode ser chamado, com justiça, de “Atos do Espírito Santo”. É Ele quem inspira, dirige, separa e envia os missionários.",
+            "A missão não nasce da criatividade humana, mas da vontade soberana do Espírito.",
+            "Sem o poder do Espírito, até os apóstolos permaneceram retraídos; com o Pentecostes, tornaram-se proclamadores ousados da fé.",
+            "Assim, toda iniciativa evangelizadora autêntica é fruto da ação do Espírito no coração da igreja."
+          ],
+          "versiculosDestaque": [],
+          "imagens": [
+            { "src": "licao-01/ii1-pomba.webp", "apos": 1, "alt": "A pomba, símbolo do Espírito Santo" },
+            { "src": "licao-01/ii1-espirito-homem.webp", "apos": 1, "alt": "O Espírito Santo sobre o crente" },
+            { "src": "licao-01/ii1-espirito-conduz.webp", "apos": 3, "alt": "O poder do Espírito no Pentecostes" },
+            { "src": "licao-01/ii1-pentecostes-b.webp", "apos": 3, "alt": "A igreja cheia do Espírito Santo" }
+          ]
+        },
+        {
+          "codigo": "II.2",
+          "titulo": "O poder do Espírito na evangelização dos gentios.",
+          "paragrafos": [
+            "Os discípulos viviam cheios do Espírito, e por isso evangelizavam com coragem, discernimento e alegria (At 4.31; 5.41; 7.55).",
+            "O Batismo no Espírito Santo lhes deu poder para testemunhar de Cristo, e eficácia em sua mensagem (At 1.8).",
+            "Essa unção não apenas fortaleceu a pregação, mas também conferiu autoridade espiritual para enfrentar resistências, realizar sinais e consolidar igrejas em diversos povos e regiões.",
+            "A expansão registrada em Atos — de 120 discípulos a multidões — é resultado direto dessa obra sobrenatural."
+          ],
+          "versiculosDestaque": [
+            { "referencia": "At 4.31", "texto": "Tendo eles orado, tremeu o lugar onde estavam reunidos; todos ficaram cheios do Espírito Santo e, com intrepidez, anunciavam a palavra de Deus." },
+            { "referencia": "At 1.8", "texto": "mas recebereis poder, ao descer sobre vós o Espírito Santo, e sereis minhas testemunhas tanto em Jerusalém como em toda a Judeia e Samaria e até aos confins da terra." }
+          ],
+          "imagens": [
+            { "src": "licao-01/ii2-poder-evangelizacao.webp", "apos": 1, "alt": "Discípulos proclamando com ousadia" },
+            { "src": "licao-01/ii2-caminho.webp", "apos": 3, "alt": "Discípulos a caminho, levando o Evangelho" },
+            { "src": "licao-01/ii2-uncao.webp", "apos": 3, "alt": "A unção que fortalece a pregação" }
+          ]
+        },
+        {
+          "codigo": "II.3",
+          "titulo": "Evidências da ação missionária do Espírito (At 13—14).",
+          "paragrafos": [
+            "As primeiras viagens missionárias mostram a clara intervenção do Espírito: portas se abrem, vidas são transformadas, e igrejas são plantadas apesar de perseguições.",
+            "Em Pafos, o confronto entre Paulo e Elimas não é apenas um episódio de oposição, mas uma demonstração de que a luz do Evangelho prevalece sobre as trevas.",
+            "A conversão do procônsul Sérgio Paulo revela que nenhum nível social está além do alcance de Deus.",
+            "A missão avança porque o Espírito autentica a mensagem e confirma a autoridade dos enviados."
+          ],
+          "versiculosDestaque": [],
+          "imagens": [
+            { "src": "licao-01/ii3-comunhao.webp", "apos": 1, "alt": "Igrejas plantadas em comunhão" },
+            { "src": "licao-01/ii3-evidencias.webp", "apos": 1, "alt": "Paulo confronta Elimas em Pafos" },
+            { "src": "licao-01/ii3-proconsul.webp", "apos": 3, "alt": "A conversão do procônsul Sérgio Paulo" },
+            { "src": "licao-01/ii3-multidoes.webp", "apos": 3, "alt": "A missão avança entre as multidões" }
+          ]
+        }
+      ]
+    },
+    {
+      "numeroRomano": "III",
+      "titulo": "A IGREJA COMO AGÊNCIA MISSIONÁRIA",
+      "subtopicos": [
+        {
+          "codigo": "III.1",
+          "titulo": "A Igreja que ouve a voz de Deus.",
+          "paragrafos": [
+            "Antioquia serve de modelo para toda comunidade cristã: uma igreja que ora, jejua e discerne a direção divina. Uma igreja missionária cresce na comunhão e age por obediência.",
+            "A obra missionária não é programação, mas identidade. Em Atos 13, vemos que o Espírito fala à igreja que se coloca diante de Deus com reverência e compromisso."
+          ],
+          "versiculosDestaque": [],
+          "imagens": [
+            { "src": "licao-01/iii1-igreja-ouve.webp", "apos": 1, "alt": "Igreja de joelhos, ouvindo a Deus" },
+            { "src": "licao-01/iii1-adoracao.webp", "apos": 1, "alt": "Comunidade em adoração e reverência" }
+          ]
+        },
+        {
+          "codigo": "III.2",
+          "titulo": "Uma igreja que envia e sustenta seus missionários.",
+          "paragrafos": [
+            "A imposição de mãos sobre Paulo e Barnabé mostra que a igreja participa ativamente do envio. Não retém seus melhores servos, mas os consagra ao propósito eterno.",
+            "Sustentar, interceder e acompanhar missionários é parte inseparável da vocação eclesial.",
+            "Assim como Antioquia se tornou um centro de envio, cada igreja local é chamada a tornar-se base de operação para que o Evangelho alcance novos povos e culturas."
+          ],
+          "versiculosDestaque": [],
+          "imagens": [
+            { "src": "licao-01/iii2-intercessao.webp", "apos": 1, "alt": "Igreja intercedendo pelos missionários" },
+            { "src": "licao-01/iii2-envia-sustenta.webp", "apos": 1, "alt": "O envio dos missionários pela igreja" },
+            { "src": "licao-01/iii2-maos.webp", "apos": 2, "alt": "Imposição de mãos: igreja que envia hoje" }
+          ]
+        },
+        {
+          "codigo": "III.3",
+          "titulo": "Uma igreja que cumpre a Grande Comissão.",
+          "paragrafos": [
+            "A ordem de Jesus permanece: ir, pregar, fazer discípulos e alcançar as nações (Mt 28.19,20). No mundo, ainda há povos que nunca ouviram o Evangelho.",
+            "Como ouvirão, se não há quem pregue? (Rm 10.14). E como pregarão, se não forem enviados? (Rm 10.15).",
+            "O Espírito continua chamando homens e mulheres para essa obra, e cabe à igreja atender ao chamado com prontidão, oração, recursos e disposição para ir."
+          ],
+          "versiculosDestaque": [
+            { "referencia": "Mt 28.19,20", "texto": "Ide, portanto, fazei discípulos de todas as nações, batizando-os em nome do Pai, e do Filho, e do Espírito Santo; ensinando-os a guardar todas as coisas que vos tenho ordenado. E eis que estou convosco todos os dias até à consumação do século." }
+          ],
+          "imagens": [
+            { "src": "licao-01/iii3-reflexao.webp", "apos": 1, "alt": "Como ouvirão, se não há quem pregue?" },
+            { "src": "licao-01/iii3-grande-comissao.webp", "apos": 2, "alt": "O chamado do Espírito para ir" }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "conclusao": "A missão entre os gentios começa com oração, jejum e sensibilidade à voz do Espírito. A igreja de Antioquia mostra que Deus fala, chama, separa e envia; e que a igreja responde, intercede e sustenta. A Palavra de Deus é poderosa para transformar todo pecador em uma pessoa regenerada, alcançada pela graça. Hoje, o Espírito continua chamando sua igreja para alcançar as nações. Estamos dispostos a ouvir, obedecer e participar da missão que ainda está em andamento?",
+
+  "revisao": [
+    {
+      "pergunta": "Em qual cidade os discípulos foram chamados “cristãos” pela primeira vez?",
+      "resposta": "Antioquia.",
+      "alternativas": ["Jerusalém", "Antioquia", "Roma", "Éfeso"]
+    },
+    {
+      "pergunta": "Quem ordenou para que separassem Saulo e Barnabé para as nações?",
+      "resposta": "O Espírito Santo.",
+      "alternativas": ["A igreja de Jerusalém", "O Espírito Santo", "O apóstolo Pedro", "O profeta Ágabo"]
+    },
+    {
+      "pergunta": "Por que os discípulos evangelizavam com coragem, discernimento e alegria?",
+      "resposta": "Porque os discípulos viviam cheios do Espírito.",
+      "alternativas": [
+        "Porque temiam a perseguição",
+        "Porque os discípulos viviam cheios do Espírito",
+        "Porque recebiam recompensas materiais",
+        "Porque a lei os obrigava"
+      ]
+    },
+    {
+      "pergunta": "Quais evidências mostram a clara intervenção do Espírito nas primeiras viagens missionárias?",
+      "resposta": "Portas se abrem, vidas são transformadas e igrejas são plantadas apesar de perseguições."
+    },
+    {
+      "pergunta": "Por que Antioquia serve de modelo para toda a comunidade cristã?",
+      "resposta": "Antioquia é uma igreja que ora, jejua e discerne a direção divina."
+    }
+  ],
+
+  "referenciasBiblicas": [
+    "At 13.2",
+    "At 13.4",
+    "At 11.26",
+    "1Co 12.28",
+    "At 1.8",
+    "At 4.31",
+    "At 5.41",
+    "At 7.55",
+    "Mt 28.19",
+    "Mt 28.20",
+    "Rm 10.14",
+    "Rm 10.15"
+  ]
+}

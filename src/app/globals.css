@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   EBD em Foco — Design tokens (Master Prompt §8)
+   Estética cinematográfica de colheita: marinho profundo +
+   dourado de acento + creme reverente. Dark é o padrão.
+   ============================================================ */
+:root {
+  --color-bg: #0c2a47;        /* fundo primário (marinho/petróleo) */
+  --color-bg-2: #0a2340;      /* gradiente/vinheta mais escura */
+  --color-surface: #12395f;   /* cards / superfícies */
+  --color-surface-2: #16456f; /* superfície elevada / hover */
+  --color-gold: #c9a24b;      /* acento: rótulos de seção, destaques */
+  --color-gold-soft: #e2c987; /* dourado claro para textos sobre escuro */
+  --color-ink: #f5f1e6;       /* texto principal (creme) */
+  --color-ink-muted: #a9b9c9; /* texto secundário */
+  --color-success: #4e9a6b;   /* concluído */
+  --color-border: rgba(245, 241, 230, 0.12);
+
+  /* Tripletos RGB — permitem os modificadores de opacidade do Tailwind
+     (bg-bg/85, from-gold/10 …). SEMPRE manter em sincronia com os hex acima. */
+  --rgb-bg: 12 42 71;
+  --rgb-bg-2: 10 35 64;
+  --rgb-surface: 18 57 95;
+  --rgb-surface-2: 22 69 111;
+  --rgb-gold: 201 162 75;
+  --rgb-gold-soft: 226 201 135;
+  --rgb-ink: 245 241 230;
+  --rgb-ink-muted: 169 185 201;
+  --rgb-success: 78 154 107;
+}
+
+:root.light {
+  --color-bg: #f4efe3;
+  --color-bg-2: #ece5d4;
+  --color-surface: #ffffff;
+  --color-surface-2: #f7f3ea;
+  --color-gold: #a9822d;
+  --color-gold-soft: #8a6a22;
+  --color-ink: #142335;
+  --color-ink-muted: #51637a;
+  --color-success: #3f7d57;
+  --color-border: rgba(20, 35, 53, 0.14);
+
+  --rgb-bg: 244 239 227;
+  --rgb-bg-2: 236 229 212;
+  --rgb-surface: 255 255 255;
+  --rgb-surface-2: 247 243 234;
+  --rgb-gold: 169 130 45;
+  --rgb-gold-soft: 138 106 34;
+  --rgb-ink: 20 35 53;
+  --rgb-ink-muted: 81 99 122;
+  --rgb-success: 63 125 87;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100%;
+  /* impede o gesto de "voltar" ao arrastar da borda enquanto se seleciona
+     texto no Modo Professor (Chrome/Edge Android) */
+  overscroll-behavior-x: none;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-inter), system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Versículos e Texto Áureo em serifada — a hierarquia reverente do material */
+.font-serif,
+.verse {
+  font-family: var(--font-serif), Cambria, Georgia, 'Times New Roman', serif;
+}
+
+/* Rótulo de seção dourado (VERDADE PRÁTICA, TEXTO ÁUREO, etc.) */
+.eyebrow {
+  color: var(--color-gold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+
+/* Foco acessível e visível para navegação por teclado */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Texto do hero da Home — legível sobre qualquer área da foto */
+.hero-text h1,
+.hero-text p {
+  text-shadow: 0 1px 12px rgba(4, 16, 29, 0.8), 0 1px 3px rgba(4, 16, 29, 0.6);
+}
+
+/* Seleção de texto no Modo Professor — confortável também no celular:
+   mantém a seleção nativa (toque longo + pegadores) e silencia o menu
+   de copiar do iOS para a nossa toolbar assumir. */
+.prof-select {
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: none;
+  cursor: text;
+}
+.prof-select::selection,
+.prof-select *::selection {
+  background: rgba(201, 162, 75, 0.4);
+}
+
+/* Marca-texto do professor — legível sobre fundo escuro e claro */
+mark.hl-amarelo { background: rgba(232, 208, 106, 0.34); box-shadow: 0 0 0 1px rgba(232, 208, 106, 0.12); }
+mark.hl-verde   { background: rgba(127, 199, 154, 0.30); box-shadow: 0 0 0 1px rgba(127, 199, 154, 0.12); }
+mark.hl-azul    { background: rgba(127, 181, 232, 0.30); box-shadow: 0 0 0 1px rgba(127, 181, 232, 0.12); }
+mark.hl-rosa    { background: rgba(232, 154, 181, 0.30); box-shadow: 0 0 0 1px rgba(232, 154, 181, 0.12); }
+mark[class^='hl-'] { color: inherit; }
+
+:root.light mark.hl-amarelo { background: rgba(226, 190, 60, 0.45); }
+:root.light mark.hl-verde   { background: rgba(110, 190, 140, 0.40); }
+:root.light mark.hl-azul    { background: rgba(110, 170, 226, 0.40); }
+:root.light mark.hl-rosa    { background: rgba(226, 140, 170, 0.40); }
+
+/* Scrollbar discreta */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-2);
+  border-radius: 999px;
+}

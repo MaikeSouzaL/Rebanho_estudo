@@ -1,0 +1,7 @@
+{
+  "contents": [{ "parts": [{ "text": "A paz do Senhor! Bem-vindos à Escola Bíblica Dominical da Igreja O Rebanho de Jesus Cristo." }] }],
+  "generationConfig": {
+    "responseModalities": ["AUDIO"],
+    "speechConfig": { "voiceConfig": { "prebuiltVoiceConfig": { "voiceName": "Charon" } } }
+  }
+}
