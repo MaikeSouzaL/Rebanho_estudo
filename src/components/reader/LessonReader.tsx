@@ -228,6 +228,15 @@ export function LessonReader({
     void excluirDesenho(did);
   }, []);
 
+  const limparDesenhos = useCallback(() => {
+    const blocoAtualId = blocos[indice].id;
+    setDesenhos((prev) => {
+      const paraRemover = prev.filter(d => d.blocoId === blocoAtualId);
+      paraRemover.forEach(d => void excluirDesenho(d.id));
+      return prev.filter(d => d.blocoId !== blocoAtualId);
+    });
+  }, [indice, blocos]);
+
   const abrirEditor = useCallback((anotacao: Anotacao, trecho: string) => {
     setEditorBalao({ anotacao, trecho });
   }, []);
@@ -329,6 +338,7 @@ export function LessonReader({
         desenhos,
         criarDesenho,
         removerDesenho,
+        limparDesenhos,
         responderQuiz,
         respostasQuiz: progresso.quiz,
         ferramentaAtiva,

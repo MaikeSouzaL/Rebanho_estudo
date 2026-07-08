@@ -23,6 +23,7 @@ export interface ReaderCtx {
   desenhos: Desenho[];
   criarDesenho: (blocoId: string, path: string, cor: string) => Desenho;
   removerDesenho: (id: string) => void;
+  limparDesenhos: () => void;
   /** registra resposta do quiz (1ª tentativa conta ponto) */
   responderQuiz: (indice: number, escolha: string, correta: boolean) => void;
   respostasQuiz: Record<number, { escolha: string; correta: boolean }>;
@@ -42,6 +43,7 @@ export const ReaderContext = createContext<ReaderCtx>({
   desenhos: [],
   criarDesenho: () => ({} as Desenho),
   removerDesenho: () => {},
+  limparDesenhos: () => {},
   responderQuiz: () => {},
   respostasQuiz: {},
   ferramentaAtiva: null,
