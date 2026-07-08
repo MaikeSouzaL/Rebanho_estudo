@@ -76,7 +76,7 @@ export function HighlightableText({
   const ref = useRef<HTMLParagraphElement | HTMLQuoteElement | null>(null);
 
   const handleClick = (e: React.MouseEvent) => {
-    if (!modoProfessor || !ferramentaAtiva) return;
+    if (!modoProfessor) return;
     
     const target = e.target as HTMLElement;
     // Ignora o clique se for num link de versículo ou botão de balão existente
@@ -84,22 +84,12 @@ export function HighlightableText({
 
     const minhas = anotacoes.filter((a) => a.paraKey === paraKey);
     
-    if (ferramentaAtiva === 'balao') {
-      if (minhas.length > 0) {
-        abrirEditor(minhas[0], texto);
-      } else {
-        const nova = criarAnotacao(paraKey, 0, texto.length, 'amarelo', '');
-        if (nova) abrirEditor(nova, texto);
-      }
+    if (minhas.length > 0) {
+      // Já está pintado. Clicar novamente abre o balão (editor) para escrever ou mudar de cor
+      abrirEditor(minhas[0], texto);
     } else {
-      const ehMesmaCor = 
-        minhas.length === 1 && 
-        minhas[0].cor === ferramentaAtiva && 
-        minhas[0].inicio === 0 && 
-        minhas[0].fim === texto.length;
-        
-      minhas.forEach((a) => removerAnotacao(a.id));
-      if (!ehMesmaCor) {
+      // Não está pintado. Pinta com a ferramenta ativa (se houver alguma)
+      if (ferramentaAtiva) {
         criarAnotacao(paraKey, 0, texto.length, ferramentaAtiva, '');
       }
     }
@@ -116,7 +106,7 @@ export function HighlightableText({
       onClick={handleClick}
       className={clsx(
         'leading-relaxed transition-colors',
-        modoProfessor && ferramentaAtiva && 'cursor-pointer hover:opacity-80',
+        modoProfessor && (ferramentaAtiva || minhas.length > 0) && 'cursor-pointer hover:opacity-80',
         className
       )}
     >

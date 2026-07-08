@@ -66,20 +66,6 @@ export function ProfessorSelecao() {
                 aria-label={`Ferramenta: ${CORES_MARCA[c].nome}`}
               />
             ))}
-            <span className="mx-0.5 h-6 w-px bg-line" aria-hidden />
-            <button
-              type="button"
-              onClick={() => setFerramentaAtiva(ferramentaAtiva === 'balao' ? null : 'balao')}
-              className={clsx(
-                'flex h-9 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold transition-transform active:scale-95 sm:h-8',
-                ferramentaAtiva === 'balao'
-                  ? 'bg-gold text-bg shadow-lg'
-                  : 'border border-line bg-bg-2/50 text-ink hover:bg-surface'
-              )}
-              aria-label="Ferramenta: Balão de anotação"
-            >
-              <IconeBalao className="h-4 w-4" /> Balão
-            </button>
           </div>
         </motion.div>
       )}

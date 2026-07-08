@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Merriweather } from 'next/font/google';
 import { PwaRegister } from '@/components/PwaRegister';
+import { PwaInstallPrompt } from '@/components/PwaInstallPrompt';
 import { SplashScreen } from '@/components/SplashScreen';
 import './globals.css';
 
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="min-h-screen bg-bg text-ink antialiased">
         <PwaRegister />
+        <PwaInstallPrompt />
         <SplashScreen />
         {children}
       </body>

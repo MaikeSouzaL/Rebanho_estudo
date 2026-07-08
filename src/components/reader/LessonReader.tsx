@@ -47,7 +47,7 @@ export function LessonReader({
   const [progresso, setProgresso] = useState<ProgressoLicao>(() => progressoVazio(id));
   const [anotacoes, setAnotacoes] = useState<Anotacao[]>([]);
   const [modoProfessor, setModoProfessor] = useState(false);
-  const [ferramentaAtiva, setFerramentaAtiva] = useState<CorMarcaTexto | 'balao' | null>(null);
+  const [ferramentaAtiva, setFerramentaAtiva] = useState<CorMarcaTexto | null>(null);
   const [celebrar, setCelebrar] = useState(false);
   const [ganhoXp, setGanhoXp] = useState<number | null>(null);
   const [editorBalao, setEditorBalao] = useState<{ anotacao: Anotacao; trecho: string } | null>(null);
@@ -412,7 +412,7 @@ export function LessonReader({
               exit={{ height: 0, opacity: 0 }}
               className="overflow-hidden border-b border-gold/20 bg-gold/10 px-4 py-0 text-center text-xs text-gold-soft sm:px-6 [&:not(:empty)]:py-1.5"
             >
-              Selecione uma cor abaixo e toque em um parágrafo para destacá-lo inteiro, ou use o balão para fazer anotações.
+              Selecione uma cor e toque em um parágrafo para pintá-lo. Toque novamente onde pintou para escrever um lembrete.
             </motion.p>
           )}
         </AnimatePresence>
