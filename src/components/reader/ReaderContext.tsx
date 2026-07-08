@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext } from 'react';
-import type { Anotacao, CorMarcaTexto } from '@/lib/store';
+import type { Anotacao, CorMarcaTexto, Desenho } from '@/lib/store';
 import type { RefParsed } from '@/lib/refs';
 
 /**
@@ -19,12 +19,16 @@ export interface ReaderCtx {
   abrirEditor: (anotacao: Anotacao, trecho: string) => void;
   /** abre o versículo num bottom sheet, sem sair da lição */
   abrirVersiculo: (ref: RefParsed) => void;
+  /** Desenhos feitos com a caneta */
+  desenhos: Desenho[];
+  criarDesenho: (blocoId: string, path: string, cor: string) => Desenho;
+  removerDesenho: (id: string) => void;
   /** registra resposta do quiz (1ª tentativa conta ponto) */
   responderQuiz: (indice: number, escolha: string, correta: boolean) => void;
   respostasQuiz: Record<number, { escolha: string; correta: boolean }>;
   /** ferramenta ativa no modo professor */
-  ferramentaAtiva: CorMarcaTexto | null;
-  setFerramentaAtiva: (ferramenta: CorMarcaTexto | null) => void;
+  ferramentaAtiva: CorMarcaTexto | 'caneta' | null;
+  setFerramentaAtiva: (ferramenta: CorMarcaTexto | 'caneta' | null) => void;
 }
 
 export const ReaderContext = createContext<ReaderCtx>({
@@ -35,6 +39,9 @@ export const ReaderContext = createContext<ReaderCtx>({
   removerAnotacao: () => {},
   abrirEditor: () => {},
   abrirVersiculo: () => {},
+  desenhos: [],
+  criarDesenho: () => ({} as Desenho),
+  removerDesenho: () => {},
   responderQuiz: () => {},
   respostasQuiz: {},
   ferramentaAtiva: null,

@@ -19,9 +19,16 @@ export function VersiculoSheet({
 }) {
   const [estado, setEstado] = useState<'carregando' | 'ok' | 'indisponivel'>('carregando');
   const [versiculos, setVersiculos] = useState<VersiculoResolvido[]>([]);
+  const [leitura, setLeitura] = useState<'parado' | 'tocando'>('parado');
 
   useEffect(() => {
-    if (!referencia) return;
+    if (!referencia) {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      setLeitura('parado');
+      return;
+    }
     let vivo = true;
     setEstado('carregando');
     void resolverReferencia(referencia).then((v) => {
@@ -38,6 +45,29 @@ export function VersiculoSheet({
     };
   }, [referencia]);
 
+  const alternarLeitura = () => {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+    
+    if (leitura === 'tocando') {
+      window.speechSynthesis.cancel();
+      setLeitura('parado');
+      return;
+    }
+
+    const textoInteiro = versiculos.map((v) => v.texto).join(' ');
+    if (!textoInteiro) return;
+
+    const u = new SpeechSynthesisUtterance(textoInteiro);
+    u.lang = 'pt-BR';
+    u.rate = 0.95;
+    u.onend = () => setLeitura('parado');
+    u.onerror = () => setLeitura('parado');
+    
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+    setLeitura('tocando');
+  };
+
   return (
     <AnimatePresence>
       {referencia && (
@@ -50,31 +80,46 @@ export function VersiculoSheet({
             onClick={fechar}
           />
           <motion.div
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-            className="fixed inset-x-0 bottom-0 z-50 mx-auto max-h-[75dvh] max-w-lg overflow-y-auto rounded-t-2xl border border-b-0 border-line bg-surface p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-glow"
+            className="fixed inset-0 z-50 flex flex-col bg-bg shadow-glow"
             role="dialog"
             aria-label={`Versículo ${referencia.raw}`}
           >
-            <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-line sm:hidden" aria-hidden />
-            <div className="mb-4 flex items-start justify-between gap-3">
-              <div>
-                <p className="eyebrow">Bíblia · offline</p>
-                <h2 className="font-serif text-2xl font-bold text-ink">
-                  {referencia.livroLabel} {referencia.capitulo}.{referencia.versiculos}
-                </h2>
-              </div>
+            <header className="flex items-center justify-between border-b border-line px-4 py-3 sm:px-6">
               <button
                 type="button"
                 onClick={fechar}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line text-ink-muted transition-colors hover:bg-surface-2 hover:text-ink"
-                aria-label="Fechar"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-ink-muted transition-colors hover:bg-surface hover:text-ink"
+                aria-label="Voltar"
               >
-                ✕
+                ←
               </button>
-            </div>
+              <div className="flex-1 text-center">
+                <p className="text-sm font-medium text-ink">
+                  {referencia.livroLabel} {referencia.capitulo}.{referencia.versiculos}
+                </p>
+                <p className="text-[10px] uppercase tracking-widest text-gold">Bíblia Sagrada</p>
+              </div>
+              <button
+                type="button"
+                onClick={alternarLeitura}
+                disabled={estado !== 'ok'}
+                aria-pressed={leitura === 'tocando'}
+                title={leitura === 'tocando' ? 'Parar narração' : 'Ouvir versículo'}
+                className={`flex h-9 w-9 items-center justify-center rounded-full border transition-colors disabled:opacity-50 ${
+                  leitura === 'tocando'
+                    ? 'border-gold bg-gold text-bg'
+                    : 'border-line text-ink-muted hover:bg-surface hover:text-ink'
+                }`}
+              >
+                {leitura === 'tocando' ? '■' : '🔊'}
+              </button>
+            </header>
+
+            <div className="flex-1 overflow-y-auto p-6 sm:px-8 sm:py-8 max-w-3xl mx-auto w-full">
 
             {estado === 'carregando' && (
               <div className="space-y-2.5" aria-hidden>
@@ -101,9 +146,10 @@ export function VersiculoSheet({
               </p>
             )}
 
-            <p className="mt-5 border-t border-line pt-3 text-[11px] text-ink-muted">
+            <p className="mt-8 border-t border-line pt-4 text-xs text-ink-muted text-center pb-8">
               {NOME_TRADUCAO} — tradução em domínio público.
             </p>
+            </div>
           </motion.div>
         </>
       )}

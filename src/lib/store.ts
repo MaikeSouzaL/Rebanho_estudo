@@ -36,6 +36,15 @@ export interface Anotacao {
   criadaEm: number;
 }
 
+export interface Desenho {
+  id: string;
+  licaoId: string;
+  blocoId: string;
+  path: string;
+  cor: string;
+  criadaEm: number;
+}
+
 export interface Perfil {
   nome: string;
   idade?: string;
@@ -46,7 +55,7 @@ export interface Perfil {
 
 // ------------------------------------------------------------- IndexedDB
 const DB_NAME = 'ebd-em-foco';
-const DB_VERSION = 2; // v2: + store 'narracao' (áudio TTS cacheado)
+const DB_VERSION = 3; // v2: narracao, v3: desenhos
 
 let dbPromise: Promise<IDBPDatabase> | null = null;
 
@@ -63,6 +72,10 @@ function db(): Promise<IDBPDatabase> {
         }
         if (!d.objectStoreNames.contains('narracao')) {
           d.createObjectStore('narracao'); // chave = hash(texto|voz), valor = Blob WAV
+        }
+        if (!d.objectStoreNames.contains('desenhos')) {
+          const s = d.createObjectStore('desenhos', { keyPath: 'id' });
+          s.createIndex('porLicao', 'licaoId');
         }
       },
     });
@@ -115,6 +128,18 @@ export async function salvarAnotacao(a: Anotacao): Promise<void> {
 
 export async function excluirAnotacao(id: string): Promise<void> {
   await (await db()).delete('anotacoes', id);
+}
+
+export async function lerDesenhos(licaoId: string): Promise<Desenho[]> {
+  return (await (await db()).getAllFromIndex('desenhos', 'porLicao', licaoId)) as Desenho[];
+}
+
+export async function salvarDesenho(d: Desenho): Promise<void> {
+  await (await db()).put('desenhos', d);
+}
+
+export async function excluirDesenho(id: string): Promise<void> {
+  await (await db()).delete('desenhos', id);
 }
 
 export function novoId(): string {

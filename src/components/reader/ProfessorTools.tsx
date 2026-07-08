@@ -66,6 +66,23 @@ export function ProfessorSelecao() {
                 aria-label={`Ferramenta: ${CORES_MARCA[c].nome}`}
               />
             ))}
+            <span className="mx-0.5 h-6 w-px bg-line" aria-hidden />
+            <button
+              type="button"
+              onClick={() => setFerramentaAtiva(ferramentaAtiva === 'caneta' ? null : 'caneta')}
+              className={clsx(
+                'flex h-9 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold transition-transform active:scale-95 sm:h-8',
+                ferramentaAtiva === 'caneta'
+                  ? 'bg-gold text-bg shadow-lg'
+                  : 'border border-line bg-bg-2/50 text-ink hover:bg-surface'
+              )}
+              aria-label="Ferramenta: Caneta (desenho livre)"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31l123.31-123.3A16,16,0,0,0,227.31,73.37ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l12.69-12.69,44.69,44.69Z"></path>
+              </svg>
+              Caneta
+            </button>
           </div>
         </motion.div>
       )}

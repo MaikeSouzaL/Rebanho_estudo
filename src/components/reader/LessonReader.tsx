@@ -9,18 +9,23 @@ import { textoDoBloco } from '@/lib/blocks';
 import { BlocoView } from './BlockViews';
 import { ReaderContext } from './ReaderContext';
 import { EditorBalao, ProfessorSelecao } from './ProfessorTools';
+import { DrawingCanvas } from './DrawingCanvas';
 import { VersiculoSheet } from './VersiculoSheet';
 import type { RefParsed } from '@/lib/refs';
 import { gerarNarracao } from '@/lib/narrador';
 import {
   type Anotacao,
   type CorMarcaTexto,
+  type Desenho,
   type ProgressoLicao,
   XP_ACERTO_QUIZ,
   XP_BLOCO,
   XP_CONCLUSAO,
   excluirAnotacao,
   lerAnotacoes,
+  lerDesenhos,
+  excluirDesenho,
+  salvarDesenho,
   lerModoProfessor,
   lerProgresso,
   novoId,
@@ -46,8 +51,9 @@ export function LessonReader({
   const [pronto, setPronto] = useState(false);
   const [progresso, setProgresso] = useState<ProgressoLicao>(() => progressoVazio(id));
   const [anotacoes, setAnotacoes] = useState<Anotacao[]>([]);
+  const [desenhos, setDesenhos] = useState<Desenho[]>([]);
   const [modoProfessor, setModoProfessor] = useState(false);
-  const [ferramentaAtiva, setFerramentaAtiva] = useState<CorMarcaTexto | null>(null);
+  const [ferramentaAtiva, setFerramentaAtiva] = useState<CorMarcaTexto | 'caneta' | null>(null);
   const [celebrar, setCelebrar] = useState(false);
   const [ganhoXp, setGanhoXp] = useState<number | null>(null);
   const [editorBalao, setEditorBalao] = useState<{ anotacao: Anotacao; trecho: string } | null>(null);
@@ -70,11 +76,12 @@ export function LessonReader({
   useEffect(() => {
     let vivo = true;
     (async () => {
-      const [p, a] = await Promise.all([lerProgresso(id), lerAnotacoes(id)]);
+      const [p, a, d] = await Promise.all([lerProgresso(id), lerAnotacoes(id), lerDesenhos(id)]);
       if (!vivo) return;
       progressoRef.current = p;
       setProgresso(p);
       setAnotacoes(a);
+      setDesenhos(d);
       setModoProfessor(lerModoProfessor());
       // deep-link da busca (#b=blocoId) tem prioridade; senão, continua de onde parou
       const alvoHash = decodeURIComponent(window.location.hash.replace(/^#b=/, ''));
@@ -209,6 +216,18 @@ export function LessonReader({
     void excluirAnotacao(aid);
   }, []);
 
+  const criarDesenho = useCallback((blocoId: string, path: string, cor: string): Desenho => {
+    const d: Desenho = { id: novoId(), licaoId: id, blocoId, path, cor, criadaEm: Date.now() };
+    setDesenhos((prev) => [...prev, d]);
+    void salvarDesenho(d);
+    return d;
+  }, [id]);
+
+  const removerDesenho = useCallback((did: string) => {
+    setDesenhos((prev) => prev.filter((d) => d.id !== did));
+    void excluirDesenho(did);
+  }, []);
+
   const abrirEditor = useCallback((anotacao: Anotacao, trecho: string) => {
     setEditorBalao({ anotacao, trecho });
   }, []);
@@ -307,6 +326,9 @@ export function LessonReader({
         removerAnotacao,
         abrirEditor,
         abrirVersiculo,
+        desenhos,
+        criarDesenho,
+        removerDesenho,
         responderQuiz,
         respostasQuiz: progresso.quiz,
         ferramentaAtiva,
@@ -427,8 +449,8 @@ export function LessonReader({
         </div>
 
         {/* Conteúdo */}
-        <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-          <div className="mx-auto w-full max-w-2xl">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-6 sm:px-6 relative">
+          <div className="mx-auto w-full max-w-2xl relative">
             <motion.div
               key={bloco.id + (pronto ? '-p' : '')}
               initial={{ opacity: 0, x: direcao * 32 }}
@@ -437,6 +459,9 @@ export function LessonReader({
             >
               <BlocoView bloco={bloco} />
             </motion.div>
+            {/* O DrawingCanvas precisa cobrir o tamanho exato do bloco para os desenhos casarem.
+                Como ele usa absolute inset-0, ele vai cobrir a div max-w-2xl relativa. */}
+            <DrawingCanvas blocoId={bloco.id} />
           </div>
         </div>
 
