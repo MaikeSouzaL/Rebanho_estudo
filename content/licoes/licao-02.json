@@ -1,0 +1,486 @@
+{
+  "id": "licao-02",
+  "numero": 2,
+  "titulo": "A porta da fé se abre entre os gentios",
+  "subtitulo": null,
+  "referenciaBase": "Atos 13.44-52",
+  "tempoEstimadoMin": 45,
+  "status": "novo",
+  "capa": {
+    "imagem": "licao-02/capa.webp",
+    "tema": "A porta da fé aos gentios"
+  },
+
+  "textoAureo": {
+    "texto": "Porque o Senhor assim no-lo mandou: Eu te pus para luz dos gentios, para que sejas de salvação até aos confins da terra.",
+    "referencia": "At 13.47"
+  },
+
+  "verdadePratica": "O propósito de Deus é que o Evangelho alcance todas as nações, revelando seu eterno desejo de salvar a todos.",
+
+  "objetivos": [
+    "Explicar ao aluno o avanço missionário entre os gentios de acordo com a Missão em Chipre;",
+    "Revelar ao aluno o impacto do Evangelho em Antioquia da Pisídia;",
+    "Fortalecer no aluno a fé que perseverou em Icônio, Listra e Derbe."
+  ],
+
+  "leituraBiblica": {
+    "referencia": "Atos 13.44-52",
+    "versiculos": [
+      { "numero": 44, "texto": "E, no sábado seguinte, ajuntou-se quase toda a cidade a ouvir a palavra de Deus." },
+      { "numero": 45, "texto": "Então, os judeus, vendo a multidão, encheram-se de inveja e, blasfemando, contradiziam o que Paulo dizia." },
+      { "numero": 46, "texto": "Mas Paulo e Barnabé, usando de ousadia, disseram: Era mister que a vós se vos pregasse primeiro a palavra de Deus; mas, visto que a rejeitais, e vos não julgais dignos da vida eterna, eis que nos voltamos para os gentios." },
+      { "numero": 47, "texto": "Porque o Senhor assim no-lo mandou: Eu te pus para luz dos gentios, para que sejas de salvação até aos confins da terra." },
+      { "numero": 48, "texto": "E os gentios, ouvindo isto, alegraram-se e glorificavam a palavra do Senhor, e creram todos quantos estavam ordenados para a vida eterna." },
+      { "numero": 49, "texto": "E a palavra do Senhor se divulgava por toda aquela província." },
+      { "numero": 50, "texto": "Mas os judeus incitaram algumas mulheres religiosas e honestas, e os principais da cidade, e levantaram perseguição contra Paulo e Barnabé, e os lançaram fora dos seus limites." },
+      { "numero": 51, "texto": "Sacudindo, porém, contra eles o pó dos pés, partiram para Icônio." },
+      { "numero": 52, "texto": "E os discípulos estavam cheios de alegria e do Espírito Santo." }
+    ]
+  },
+
+  "introducao": [
+    "A primeira viagem missionária do apóstolo Paulo está registrada em Atos 13 e 14. Logo após serem separados pelo Espírito Santo (At 13.2,3), Paulo e Barnabé, guiados pela direção divina, iniciaram a obra que o Senhor lhes confiara."
+  ],
+  "imagensIntroducao": [],
+
+  "passosIntroducao": [
+    {
+      "paragrafos": [
+        "A primeira viagem missionária do apóstolo Paulo está registrada em Atos 13 e 14. Logo após serem separados pelo Espírito Santo (At 13.2,3), Paulo e Barnabé, guiados pela direção divina, iniciaram a obra que o Senhor lhes confiara."
+      ],
+      "imagens": [
+        { "src": "licao-02/i07.webp", "apos": 0, "alt": "A igreja impõe as mãos sobre Paulo e Barnabé, separando-os para a obra" },
+        { "src": "licao-02/i06.webp", "apos": 0, "alt": "Os missionários navegam rumo ao campo missionário" }
+      ]
+    },
+    {
+      "paragrafos": [
+        "A jornada durou cerca de dois anos, entre 46 e 48 d.C. Nesse período, acompanhados por João Marcos, partiram de Antioquia da Síria, seguiram para Chipre — terra natal de Barnabé — e avançaram pela Ásia Menor, anunciando o Evangelho em Antioquia da Pisídia, Icônio, Listra e Derbe."
+      ],
+      "imagens": [
+        { "src": "licao-02/i09.webp", "apos": 0, "alt": "Mapa da primeira viagem missionária de Paulo, de Antioquia a Chipre e à Ásia Menor" },
+        { "src": "licao-02/i08.webp", "apos": 0, "alt": "Rua movimentada de uma cidade da Ásia Menor no primeiro século" }
+      ]
+    },
+    {
+      "paragrafos": [
+        "Toda a missão tinha um alvo claro: alcançar os gentios e revelar que o plano de Deus abraça todas as nações sob a luz de Cristo. Esse é o assunto que veremos nesta lição."
+      ],
+      "imagens": [
+        { "src": "licao-02/i11.webp", "apos": 0, "alt": "Cristo sobre o mundo, cercado pelas multidões de todas as nações" }
+      ]
+    }
+  ],
+
+  "capitulos": [
+    {
+      "numeroRomano": "I",
+      "titulo": "A MISSÃO EM CHIPRE: A PRIMEIRA PORTA ABERTA ENTRE OS GENTIOS",
+      "subtopicos": [
+        {
+          "codigo": "I.1",
+          "titulo": "O envio missionário e o avanço da Palavra.",
+          "passos": [
+            {
+              "paragrafos": [
+                "Conduzidos pelo Espírito Santo, Paulo e Barnabé partiram de Antioquia, desceram a Selêucia e navegaram rumo a Chipre — terra natal de Barnabé e já evangelizada por helenistas (At 11.19).",
+                "Aportando em Salamina, anunciaram o Evangelho nas sinagogas, cumprindo o princípio missionário revelado por Paulo: “primeiro do judeu e também do grego” (Rm 1.16)."
+              ],
+              "imagens": [
+                { "src": "licao-02/i12.webp", "apos": 0, "alt": "Paulo e Barnabé caminham sob a luz rumo ao campo missionário" },
+                { "src": "licao-02/i13.webp", "apos": 1, "alt": "Anúncio do Evangelho na sinagoga de Salamina" }
+              ]
+            },
+            {
+              "paragrafos": [
+                "Acompanhados por João Marcos, seu cooperador (Cl 4.10), avançaram pela ilha até Pafos (At 13.6)."
+              ],
+              "imagens": [
+                { "src": "licao-02/i14.webp", "apos": 0, "alt": "Os missionários atravessam a ilha de Chipre até Pafos" }
+              ],
+              "versiculosDestaque": [
+                { "referencia": "Cl 4.10", "texto": "Saúda-vos Aristarco, prisioneiro comigo, e Marcos, primo de Barnabé (sobre quem recebestes instruções; se ele for ter convosco, acolhei-o)," },
+                { "referencia": "At 13.6", "texto": "Havendo atravessado toda a ilha até Pafos, encontraram certo judeu, mágico, falso profeta, de nome Barjesus," }
+              ]
+            },
+            {
+              "paragrafos": [
+                "Assim, a missão se expandia, demonstrando que proclamar a Palavra exige fidelidade (2Tm 3.16,17), reverência (Jr 23.28,29) e obediência sensível à direção do Espírito Santo (At 13.2)."
+              ],
+              "imagens": [
+                { "src": "licao-02/i15.webp", "apos": 0, "alt": "A Palavra sendo proclamada nas ruas sob raios de luz" }
+              ]
+            }
+          ]
+        },
+        {
+          "codigo": "I.2",
+          "titulo": "O confronto com as trevas e a vitória do Evangelho (vv.6-8).",
+          "passos": [
+            {
+              "paragrafos": [
+                "Em Pafos, os missionários enfrentaram Barjesus, também chamado Elimas — um mágico e falso profeta (Dt 18.9-11; Gl 5.20,21).",
+                "Ele resistia à pregação, tentando impedir que o procônsul Sérgio Paulo, homem prudente, ouvisse a Palavra de Deus."
+              ],
+              "imagens": [
+                { "src": "licao-02/i16.webp", "apos": 0, "alt": "Confronto diante do procônsul em Pafos" },
+                { "src": "licao-02/i17.webp", "apos": 1, "alt": "Elimas resiste à pregação diante de Sérgio Paulo" }
+              ]
+            },
+            {
+              "paragrafos": [
+                "Cheio do Espírito Santo, Paulo o repreendeu com autoridade, declarando o juízo divino (v.11)."
+              ],
+              "imagens": [
+                { "src": "licao-02/i18.webp", "apos": 0, "alt": "Paulo repreende Elimas com autoridade" }
+              ],
+              "versiculosDestaque": [
+                { "referencia": "At 13.11", "texto": "Eis aí, pois, agora, contra ti a mão do Senhor, e ficarás cego, sem ver o sol por algum tempo. No mesmo instante, a escuridão e as trevas caíram sobre ele, e, andando à roda, buscava a quem o guiasse pela mão." }
+              ]
+            },
+            {
+              "paragrafos": [
+                "A cegueira que o atingiu confirmou o poder do Evangelho e levou Sérgio Paulo a crer, maravilhado com a doutrina do Senhor. Onde a luz resplandece, as trevas recuam (Jo 1.5; Ef 6.12)."
+              ],
+              "imagens": [
+                { "src": "licao-02/i17.webp", "apos": 0, "alt": "O procônsul crê, maravilhado com a doutrina do Senhor" }
+              ],
+              "versiculosDestaque": [
+                { "referencia": "Jo 1.5", "texto": "A luz resplandece nas trevas, e as trevas não prevaleceram contra ela." },
+                { "referencia": "Ef 6.12", "texto": "porque a nossa luta não é contra o sangue e a carne, e sim contra os principados e potestades, contra os dominadores deste mundo tenebroso, contra as forças espirituais do mal, nas regiões celestes." }
+              ]
+            }
+          ]
+        },
+        {
+          "codigo": "I.3",
+          "titulo": "Confiando no poder transformador do Evangelho (vv.9-12).",
+          "passos": [
+            {
+              "paragrafos": [
+                "O encontro em Pafos revela que o Evangelho rompe barreiras sociais e espirituais.",
+                "Paulo, cheio do Espírito Santo, confronta Elimas e testemunha a conversão de Sérgio Paulo, mostrando que a Palavra transforma mente, coração e vida (Rm 12.2; 2Co 5.17)."
+              ],
+              "imagens": [
+                { "src": "licao-02/i19.webp", "apos": 0, "alt": "A conversão do procônsul Sérgio Paulo" },
+                { "src": "licao-02/i17.webp", "apos": 1, "alt": "O confronto entre Paulo e Elimas diante da corte" },
+                { "src": "licao-02/i09.webp", "apos": 1, "alt": "Mapa da rota missionária passando por Chipre" }
+              ],
+              "versiculosDestaque": [
+                { "referencia": "2Co 5.17", "texto": "E, assim, se alguém está em Cristo, é nova criatura; as coisas antigas já passaram; eis que se fizeram novas." }
+              ]
+            },
+            {
+              "paragrafos": [
+                "O Evangelho ilumina o entendimento, renova o interior e produz frutos visíveis (Tg 2.14-26).",
+                "Que também confiemos nesse poder, orando por quem resiste e anunciando com fé. A jornada agora avança para Antioquia da Pisídia, onde a missão alcançará novas proporções."
+              ],
+              "imagens": [
+                { "src": "licao-02/i20.webp", "apos": 0, "alt": "O Evangelho no mundo, alcançando os povos" },
+                { "src": "licao-02/i21.webp", "apos": 1, "alt": "A pregação avança pelas cidades da Ásia Menor" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "numeroRomano": "II",
+      "titulo": "A MISSÃO EM ANTIOQUIA DA PISÍDIA: O EVANGELHO QUE ILUMINA",
+      "subtopicos": [
+        {
+          "codigo": "II.1",
+          "titulo": "A exposição apostólica que revela Cristo nas Escrituras (At 13.16-43).",
+          "passos": [
+            {
+              "paragrafos": [
+                "Levantando-se na sinagoga, Paulo dirige-se a judeus e gentios tementes a Deus e percorre a história de Israel para revelar que tudo aponta para Cristo."
+              ],
+              "imagens": [
+                { "src": "licao-02/i22.webp", "apos": 0, "alt": "Paulo se levanta na sinagoga de Antioquia da Pisídia" }
+              ]
+            },
+            {
+              "paragrafos": [
+                "Recorda os juízes e Saul (Jz 2.16; 1Sm 31.13), apresenta Jesus como o descendente de Davi (Mt 1.1-17; Lc 3.23-38), afirma que João preparou seu caminho (Mt 3), que a cruz cumpriu as profecias (Is 53; Sl 22) e que a ressurreição foi confirmada por testemunhas e pelas Escrituras (1Co 15.1-23; Sl 2.7; 16.10)."
+              ],
+              "imagens": [
+                { "src": "licao-02/i23.webp", "apos": 0, "alt": "O rei Saul e a linhagem que conduz a Cristo" },
+                { "src": "licao-02/i24.webp", "apos": 0, "alt": "As três cruzes ao pôr do sol, cumprimento das profecias" }
+              ],
+              "versiculosDestaque": [
+                { "referencia": "Jz 2.16", "texto": "Suscitou o Senhor juízes, que os livraram da mão dos que os pilharam." },
+                { "referencia": "Sl 2.7", "texto": "Proclamarei o decreto do Senhor: Ele me disse: Tu és meu Filho, eu, hoje, te gerei." }
+              ]
+            },
+            {
+              "paragrafos": [
+                "Proclama a justificação pela fé (Rm 4.13-21) e a salvação a quem crê (Jo 3.16,36).",
+                "Seu discurso termina com um apelo solene para que os ouvintes não repitam o erro dos que rejeitaram o Messias."
+              ],
+              "imagens": [
+                { "src": "licao-02/i25.webp", "apos": 0, "alt": "Paulo proclama a justificação pela fé" }
+              ],
+              "versiculosDestaque": [
+                { "referencia": "Jo 3.16,36", "texto": "Porque Deus amou ao mundo de tal maneira que deu o seu Filho unigênito, para que todo o que nele crê não pereça, mas tenha a vida eterna. Por isso, quem crê no Filho tem a vida eterna; o que, todavia, se mantém rebelde contra o Filho não verá a vida, mas sobre ele permanece a ira de Deus." }
+              ]
+            },
+            {
+              "paragrafos": [
+                "A repercussão é imediata: enquanto muitos judeus se retiram, os gentios rogam que Paulo retorne no sábado seguinte.",
+                "E assim, “quase toda a cidade” se reúne para ouvir a Palavra (At 13.44), revelando uma abertura extraordinária ao Evangelho."
+              ],
+              "imagens": [
+                { "src": "licao-02/i26.webp", "apos": 0, "alt": "Os gentios pedem que Paulo volte a pregar no sábado seguinte" },
+                { "src": "licao-02/i27.webp", "apos": 1, "alt": "Quase toda a cidade reunida para ouvir a palavra de Deus" }
+              ]
+            }
+          ]
+        },
+        {
+          "codigo": "II.2",
+          "titulo": "A rejeição dos judeus e a tristeza de Paulo diante da incredulidade (At 13.44,45).",
+          "passos": [
+            {
+              "paragrafos": [
+                "Fiel ao princípio de alcançar primeiro o judeu e depois o gentio (Rm 1.16), Paulo inicia sua pregação nas sinagogas.",
+                "Contudo, em Antioquia da Pisídia, a inveja e a resistência dos judeus revelam a dor do apóstolo ao ver seu povo rejeitar o Evangelho (Rm 9.1-3)."
+              ],
+              "imagens": [
+                { "src": "licao-02/i28.webp", "apos": 0, "alt": "Paulo prega primeiro na sinagoga" },
+                { "src": "licao-02/i29.webp", "apos": 1, "alt": "A multidão se divide diante da mensagem" }
+              ]
+            },
+            {
+              "paragrafos": [
+                "Diante dessa recusa, Paulo e Barnabé declaram: “Era mister que a vós se vos pregasse primeiro a palavra de Deus; mas, visto que a rejeitais, [...] eis que nos voltamos para os gentios” (At 13.46).",
+                "Assim, dentro do propósito soberano de Deus, o Evangelho alcança as nações."
+              ],
+              "imagens": [
+                { "src": "licao-02/i30.webp", "apos": 0, "alt": "Paulo e Barnabé anunciam que se voltam para os gentios" },
+                { "src": "licao-02/i31.webp", "apos": 1, "alt": "Mapa do Evangelho alcançando as nações" }
+              ]
+            }
+          ]
+        },
+        {
+          "codigo": "II.3",
+          "titulo": "A porta da fé aberta aos gentios pela graça de Deus (At 13.46-49).",
+          "passos": [
+            {
+              "paragrafos": [
+                "Ao rejeitarem a mensagem, muitos judeus se tornaram “indignos da vida eterna”, não por um decreto arbitrário, mas pela resistência voluntária ao Evangelho.",
+                "Assim, Paulo volta-se aos gentios, que recebem a Palavra com alegria e fé sincera."
+              ],
+              "imagens": [
+                { "src": "licao-02/i32.webp", "apos": 0, "alt": "A luz de Cristo alcança os que creem" },
+                { "src": "licao-02/i33.webp", "apos": 1, "alt": "Os gentios recebem a Palavra com alegria" }
+              ]
+            },
+            {
+              "paragrafos": [
+                "Cumpre-se, então, o propósito divino anunciado em Isaías: Israel seria luz para as nações (Is 49.6), e de Israel viria Cristo, a “luz para revelação aos gentios” (Lc 2.32 — NAA).",
+                "O texto afirma que “creram todos quantos estavam ordenados para a vida eterna” (v.48). A melhor compreensão, conforme a Bíblia de Estudo Pentecostal, é: “todos os que estavam dispostos para a vida eterna”. Ou seja, todos os que responderam positivamente ao chamado do Espírito."
+              ],
+              "imagens": [
+                { "src": "licao-02/i34.webp", "apos": 0, "alt": "O nascimento de Cristo, luz para revelação aos gentios" },
+                { "src": "licao-02/i36.webp", "apos": 1, "alt": "Paulo prega à multidão que responde ao chamado" },
+                { "src": "licao-02/i35.webp", "apos": 1, "alt": "O crente diante da luz da cidade celestial" }
+              ]
+            },
+            {
+              "paragrafos": [
+                "A salvação é oferecida a todos (1Tm 2.4; Tt 2.11; 2Pe 3.9), mas acolhida apenas pelos que creem. Muitos gentios acolheram a Palavra e tornaram-se testemunhas vivas do poder transformador do Evangelho."
+              ],
+              "imagens": [
+                { "src": "licao-02/i37.webp", "apos": 0, "alt": "O Evangelho transforma os gentios" }
+              ],
+              "versiculosDestaque": [
+                { "referencia": "1Tm 2.4", "texto": "o qual deseja que todos os homens sejam salvos e cheguem ao pleno conhecimento da verdade." },
+                { "referencia": "Tt 2.11", "texto": "Porquanto a graça de Deus se manifestou salvadora a todos os homens," }
+              ]
+            },
+            {
+              "paragrafos": [
+                "Assim como Antioquia da Pisídia se tornou o lugar de grande colheita, Deus deseja usar cada crente como portador da luz de Cristo.",
+                "Ainda hoje, o Senhor abre portas onde menos esperamos. A missão avança quando a igreja responde com fé, discernimento e obediência."
+              ],
+              "imagens": [
+                { "src": "licao-02/i38.webp", "apos": 0, "alt": "A missão da igreja avança em todo o mundo" },
+                { "src": "licao-02/i39.webp", "apos": 1, "alt": "A igreja hoje levando a Palavra a quem precisa" }
+              ]
+            },
+            {
+              "paragrafos": [
+                "A obra, porém, não terminou ali. Agora, a jornada missionária se desloca para Icônio, Listra e Derbe, onde novos desafios e milagres revelarão novamente o poder do Evangelho por meio do Espírito Santo."
+              ],
+              "imagens": [
+                { "src": "licao-02/i40.webp", "apos": 0, "alt": "Mapa da jornada de Paulo, Barnabé e João a Icônio, Listra e Derbe" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "numeroRomano": "III",
+      "titulo": "A MISSÃO EM ICÔNIO, LISTRA E DERBE: A FÉ QUE PERSEVERA",
+      "subtopicos": [
+        {
+          "codigo": "III.1",
+          "titulo": "Icônio: o testemunho ousado que enfrenta oposição (At 14.1-7).",
+          "passos": [
+            {
+              "paragrafos": [
+                "Em Icônio, Paulo e Barnabé entraram na sinagoga e anunciaram o Evangelho com tal convicção que muitos judeus e gregos creram.",
+                "O Senhor confirmava a Palavra com “sinais e prodígios” (v.3), dando testemunho da graça que operava por meio deles. Entretanto, a cidade dividiu-se, e uma conspiração surgiu para apedrejá-los."
+              ],
+              "imagens": [
+                { "src": "licao-02/i41.webp", "apos": 0, "alt": "Pregação ousada na sinagoga de Icônio" },
+                { "src": "licao-02/i42.webp", "apos": 1, "alt": "A cidade se divide e surge a conspiração contra os missionários" }
+              ]
+            },
+            {
+              "paragrafos": [
+                "Onde a Palavra frutifica, a oposição também se levanta, mas o avanço do Evangelho não pode ser detido.",
+                "Obedientes à direção do Espírito, os missionários retiraram-se para Listra, não por medo, mas por prudência, preservando-se para continuar a missão (Mt 10.23)."
+              ],
+              "imagens": [
+                { "src": "licao-02/i43.webp", "apos": 0, "alt": "A Palavra frutifica mesmo em meio à oposição" }
+              ],
+              "versiculosDestaque": [
+                { "referencia": "Mt 10.23", "texto": "Quando, porém, vos perseguirem numa cidade, fugi para outra; porque em verdade vos digo que não acabareis de percorrer as cidades de Israel, até que venha o Filho do Homem." }
+              ]
+            }
+          ]
+        },
+        {
+          "codigo": "III.2",
+          "titulo": "Listra: milagres, confusão religiosa e sofrimento por Cristo (At 14.8-20).",
+          "passos": [
+            {
+              "paragrafos": [
+                "Em Listra, Paulo cura um homem aleijado de nascimento, o que leva a multidão, confundida, a tentar adorá-los como deuses.",
+                "Paulo e Barnabé rejeitam a idolatria e anunciam o Deus vivo, Criador de todas as coisas."
+              ],
+              "imagens": [
+                { "src": "licao-02/i44.webp", "apos": 0, "alt": "A cura do aleijado de nascimento em Listra" },
+                { "src": "licao-02/i45.webp", "apos": 1, "alt": "A multidão tenta adorar Paulo e Barnabé como deuses" }
+              ]
+            },
+            {
+              "paragrafos": [
+                "Porém, judeus vindos de Antioquia e Icônio incitam o povo contra eles, e Paulo é apedrejado e deixado como morto.",
+                "Mas o Senhor o restaura, e ele se levanta, retornando à cidade para reafirmar seu compromisso com o Evangelho. A fé bíblica não foge da dor: permanece firme porque está ancorada no Deus vivo."
+              ],
+              "imagens": [
+                { "src": "licao-02/i46.webp", "apos": 0, "alt": "Paulo é apedrejado e deixado como morto" },
+                { "src": "licao-02/i47.webp", "apos": 1, "alt": "Paulo se levanta e retorna à cidade" }
+              ]
+            }
+          ]
+        },
+        {
+          "codigo": "III.3",
+          "titulo": "Derbe: frutos que brotam da perseverança (At 14.20,21).",
+          "passos": [
+            {
+              "paragrafos": [
+                "Em Derbe, o Evangelho encontra terreno fértil. Muitos se convertem, e novos discípulos são formados.",
+                "Mesmo após perseguições e sofrimento, Paulo e Barnabé continuam a pregar e edificam uma comunidade forte na fé."
+              ],
+              "imagens": [
+                { "src": "licao-02/i48.webp", "apos": 0, "alt": "O Evangelho encontra terreno fértil em Derbe" },
+                { "src": "licao-02/i49.webp", "apos": 1, "alt": "Novos discípulos são formados e edificados na fé" }
+              ]
+            },
+            {
+              "paragrafos": [
+                "A obra missionária prossegue porque suas raízes não estão na comodidade, mas na fidelidade ao chamado de Cristo."
+              ],
+              "imagens": [
+                { "src": "licao-02/i50.webp", "apos": 0, "alt": "O ciclo missionário prossegue em fidelidade ao chamado" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "conclusao": "Ao encerrar esse ciclo missionário, os apóstolos retornam às cidades onde haviam sofrido, fortalecendo os discípulos e estabelecendo presbíteros (At 14.22,23). Depois, apresentam à igreja de Antioquia o relatório do que Deus fizera, celebrando que “abrira aos gentios a porta da fé” (At 14.27). A missão continua porque a graça conduz, sustenta e abre caminhos onde parecia impossível.",
+
+  "revisao": [
+    {
+      "pergunta": "Por onde Paulo e Barnabé avançaram anunciando o Evangelho após partirem de Antioquia da Síria, para Chipre?",
+      "resposta": "Avançaram pela Ásia Menor, em Antioquia da Pisídia, Icônio, Listra e Derbe.",
+      "alternativas": [
+        "Pela Macedônia, Acaia e Grécia",
+        "Avançaram pela Ásia Menor, em Antioquia da Pisídia, Icônio, Listra e Derbe",
+        "Por Roma, Espanha e Gália",
+        "Pelo Egito, Etiópia e Líbia"
+      ]
+    },
+    {
+      "pergunta": "O que o encontro em Pafos revela?",
+      "resposta": "O encontro em Pafos revela que o Evangelho rompe barreiras sociais e espirituais.",
+      "alternativas": [
+        "Que a magia tem poder sobre a fé cristã",
+        "O encontro em Pafos revela que o Evangelho rompe barreiras sociais e espirituais",
+        "Que o Evangelho era apenas para os judeus",
+        "Que os gentios não podiam ser salvos"
+      ]
+    },
+    {
+      "pergunta": "O que Paulo e Barnabé declaram com a recusa dos judeus ao Evangelho?",
+      "resposta": "“Era mister que nós se vos pregasse primeiro a Palavra de Deus.”"
+    },
+    {
+      "pergunta": "Por que os judeus se tornaram indignos da vida eterna, e o que se seguiu?",
+      "resposta": "Ao rejeitarem a mensagem, muitos judeus se tornaram “indignos da vida eterna”, não por um decreto arbitrário, mas pela resistência voluntária ao Evangelho. Assim, Paulo volta-se aos gentios, que recebem a Palavra com alegria e fé sincera."
+    },
+    {
+      "pergunta": "O que aconteceu quando os judeus vindos de Antioquia incitaram o povo contra Paulo e Barnabé?",
+      "resposta": "Paulo é apedrejado e deixado como morto. Mas o Senhor o restaura, e ele se levanta, retornando à cidade para reafirmar seu compromisso com o Evangelho."
+    }
+  ],
+
+  "referenciasBiblicas": [
+    "At 13.47",
+    "At 13.2",
+    "At 11.19",
+    "Rm 1.16",
+    "Cl 4.10",
+    "At 13.6",
+    "2Tm 3.16",
+    "Jr 23.28",
+    "Dt 18.9",
+    "Gl 5.20",
+    "At 13.11",
+    "Jo 1.5",
+    "Ef 6.12",
+    "Rm 12.2",
+    "2Co 5.17",
+    "Tg 2.14",
+    "Jz 2.16",
+    "1Sm 31.13",
+    "Mt 1.1",
+    "Lc 3.23",
+    "1Co 15.1",
+    "Sl 2.7",
+    "Rm 4.13",
+    "Jo 3.16",
+    "At 13.44",
+    "Rm 9.1",
+    "At 13.46",
+    "Is 49.6",
+    "Lc 2.32",
+    "1Tm 2.4",
+    "Tt 2.11",
+    "2Pe 3.9",
+    "Mt 10.23",
+    "At 14.22",
+    "At 14.27"
+  ]
+}

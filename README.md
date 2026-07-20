@@ -40,9 +40,9 @@ Sem backend.
 ## Estrutura
 
 ```
-content/licoes/licao-01.json   ← conteúdo validado (Sistema A → B)
-public/licoes/licao-01/*.webp  ← imagens da lição (otimizadas)
-public/biblia/*.json           ← Bíblia offline (domínio público)
+content/licoes/licao-NN.json   ← conteúdo validado (Sistema A → B)
+public/licoes/licao-NN/*.webp  ← imagens da lição (otimizadas)
+public/biblia/*.json           ← Bíblia offline completa: 66 livros
 public/home/hero.webp          ← imagem do hero da Home
 public/icons/                  ← ícones do PWA (logo do material)
 src/lib/schema.ts              ← ★ SCHEMA Zod (a peça-chave)
@@ -63,21 +63,49 @@ scripts/gen-sw.mjs             ← gera o service worker com precache
    perguntas e a ordem pedagógica. Ignore slides vazios de exportação e o
    slide final de propaganda.
 2. **Monte o `content/licoes/licao-NN.json`** seguindo o schema
-   (`src/lib/schema.ts`). Use o `licao-01.json` como gabarito. Pontos-chave:
-   - `capitulos[].subtopicos[].paragrafos` — o texto na ordem de leitura;
-   - `versiculosDestaque` — citações bíblicas do slide (com `texto`) ou só a
+   (`src/lib/schema.ts`). Há **dois formatos** para o corpo dos subtópicos e da
+   introdução — prefira o formato em passos:
+
+   **(a) Em PASSOS — recomendado** (gabarito: `licao-02.json`). Cada slide de
+   conteúdo vira um passo, ou seja, um cartão navegável próprio com o seu
+   trecho de texto e as suas imagens. Dá ritmo de leitura e imagens sempre
+   junto do texto a que pertencem:
+   ```jsonc
+   "passos": [
+     {
+       "paragrafos": ["1º parágrafo do slide", "2º parágrafo do slide"],
+       "imagens": [{ "src": "licao-02/i12.webp", "apos": 0, "alt": "…" }],
+       "versiculosDestaque": [{ "referencia": "Cl 4.10", "texto": "…" }]
+     }
+   ]
+   ```
+   A introdução usa o mesmo formato em `passosIntroducao`.
+
+   **(b) Compacto** (gabarito: `licao-01.json`): o subtópico inteiro é um
+   cartão só, com `paragrafos` + `imagens` + `versiculosDestaque` no próprio
+   subtópico, e `introducao` + `imagensIntroducao` na lição.
+
+   Regras comuns:
+   - `imagens: [{ src, apos, alt }]` — a imagem entra **após o parágrafo de
+     índice `apos`** (0-based) daquele passo, fiel ao slide de origem;
+   - `versiculosDestaque` — citação bíblica do slide (com `texto`) ou só a
      referência (`texto: null` → resolvida pela Bíblia offline);
-   - `imagens: [{ src, apos, alt }]` — cada imagem entra **após o parágrafo
-     `apos`**, fiel ao slide de origem; idem `imagensIntroducao`;
-   - `revisao[].alternativas` (opcional) habilita múltipla escolha no quiz.
+   - `revisao[].alternativas` (opcional) habilita múltipla escolha. **Uma das
+     alternativas precisa bater com `resposta`** pela função
+     `alternativaCorreta` (`src/lib/refs.ts`) — o jeito seguro é repetir o
+     texto da `resposta` como uma das alternativas;
+   - reaproveite o mesmo arquivo de imagem quando o PPTX repete a arte em
+     vários slides (não duplique o `.webp`).
 3. **Extraia e otimize as imagens** de conteúdo para
    `public/licoes/licao-NN/*.webp` (≤1280px, qualidade ~80). Descarte logos,
    setas, ícones decorativos e slides de anúncio.
 4. **Valide:** `npm run validate:content` (ou apenas `npm run build` — a
    validação roda no build e falha se o JSON estiver errado).
-5. Se a lição citar livros bíblicos ainda não empacotados, adicione-os a
-   `src/lib/refs.ts` (mapa `LIVROS`/`NOME_LIVRO`) e gere o JSON do livro em
-   `public/biblia/` a partir do VPL do ebible.org (id `porbrbsl`).
+5. A Bíblia offline já traz **os 66 livros** (`public/biblia/`), e
+   `src/lib/refs.ts` mapeia as abreviações em português — normalmente não há
+   nada a fazer aqui. Só mexa nesses arquivos se precisar de uma abreviação
+   incomum. Atenção ao par `Jo` (João) × `Jó` (livro de Jó): o acento é o que
+   os distingue.
 
 Zero mudança estrutural no app — o motor de importação automática (IA +
 revisão humana) chega na Fase 3.
@@ -98,8 +126,11 @@ revisão humana) chega na Fase 3.
 - **Busca offline** por palavra/versículo/personagem, com link direto para o
   bloco.
 - **Leitura em voz alta** (Web Speech API — voz do próprio dispositivo).
-- **PWA:** instalável, precache completo (lições, imagens, Bíblia), navegação
-  network-first com fallback offline.
+- **PWA:** instalável e offline de verdade. O precache é feito em duas camadas
+  (`scripts/gen-sw.mjs`): o *app shell* (~1,6 MB) vai em `addAll` — obrigatório;
+  imagens e Bíblia (~13 MB) vão em `Promise.allSettled`, para que um único
+  arquivo que falhe não derrube a instalação inteira. Navegação é network-first
+  com fallback para o cache.
 
 ## Roadmap
 

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { clsx } from 'clsx';
 import type { Bloco } from '@/lib/blocks';
+import type { Passo } from '@/lib/schema';
 import { assetUrl } from '@/lib/blocks';
 import { alternativaCorreta, parseReferencia } from '@/lib/refs';
 import { HighlightableText } from './HighlightableText';
@@ -191,18 +192,73 @@ function LeituraView({ bloco }: { bloco: Extract<Bloco, { tipo: 'leitura' }> }) 
 }
 
 /* --------------------------------------------------------------- Introdução */
+/** Trilha de progresso dentro de um subtópico/introdução dividido em passos. */
+function PassosIndicador({ atual, total }: { atual: number; total: number }) {
+  if (total <= 1) return null;
+  return (
+    <div
+      className="mb-4 flex items-center gap-1.5"
+      role="img"
+      aria-label={`Passo ${atual + 1} de ${total}`}
+    >
+      {Array.from({ length: total }).map((_, i) => (
+        <span
+          key={i}
+          className={clsx(
+            'h-1.5 rounded-full transition-all duration-300',
+            i === atual ? 'w-6 bg-gold' : i < atual ? 'w-1.5 bg-gold/50' : 'w-1.5 bg-line',
+          )}
+        />
+      ))}
+    </div>
+  );
+}
+
+/** Conteúdo de UM passo: parágrafos com as imagens do slide intercaladas,
+ *  seguidos dos versículos citados. `paraBase` é o id do bloco — assim as
+ *  anotações do professor ficam ancoradas ao passo certo. */
+function PassoConteudo({ passo, paraBase }: { passo: Passo; paraBase: string }) {
+  return (
+    <>
+      <div className="space-y-4 text-ink">
+        {passo.paragrafos.map((p, i) => (
+          <div key={i} className="space-y-4">
+            <HighlightableText paraKey={`${paraBase}#${i}`}>{p}</HighlightableText>
+            <GaleriaImagens imagens={passo.imagens} apos={i} />
+          </div>
+        ))}
+      </div>
+
+      {passo.versiculosDestaque.length > 0 && (
+        <div className="mt-6 space-y-3">
+          {passo.versiculosDestaque.map((v, i) =>
+            v.texto ? (
+              <figure key={i} className="rounded-xl border-l-2 border-gold/60 bg-bg-2/60 p-4">
+                <HighlightableText
+                  as="blockquote"
+                  paraKey={`${paraBase}#vd${i}`}
+                  className="verse italic text-ink"
+                >
+                  {v.texto}
+                </HighlightableText>
+                <figcaption className="mt-2 text-sm font-medium text-gold">{v.referencia}</figcaption>
+              </figure>
+            ) : (
+              <RefButton key={i} referencia={v.referencia} chip />
+            ),
+          )}
+        </div>
+      )}
+    </>
+  );
+}
+
 function IntroducaoView({ bloco }: { bloco: Extract<Bloco, { tipo: 'introducao' }> }) {
   return (
     <Card>
       <Eyebrow>Introdução</Eyebrow>
-      <div className="space-y-4 text-ink">
-        {bloco.paragrafos.map((p, i) => (
-          <div key={i} className="space-y-4">
-            <HighlightableText paraKey={`introducao#${i}`}>{p}</HighlightableText>
-            <GaleriaImagens imagens={bloco.imagens} apos={i} />
-          </div>
-        ))}
-      </div>
+      <PassosIndicador atual={bloco.indicePasso} total={bloco.totalPassos} />
+      <PassoConteudo passo={bloco.passo} paraBase={bloco.id} />
     </Card>
   );
 }
@@ -222,42 +278,19 @@ function CapituloView({ bloco }: { bloco: Extract<Bloco, { tipo: 'capitulo' }> }
 
 /* --------------------------------------------------------------- Subtópico */
 function SubtopicoView({ bloco }: { bloco: Extract<Bloco, { tipo: 'subtopico' }> }) {
-  const { sub } = bloco;
-  const paraBase = `sub-${sub.codigo}`;
   return (
     <Card>
-      <Eyebrow>Ponto {sub.codigo}</Eyebrow>
-      <h2 className="mb-5 font-serif text-2xl font-bold leading-snug text-ink">{sub.titulo}</h2>
-
-      <div className="space-y-4 text-ink">
-        {sub.paragrafos.map((p, i) => (
-          <div key={i} className="space-y-4">
-            <HighlightableText paraKey={`${paraBase}#${i}`}>{p}</HighlightableText>
-            <GaleriaImagens imagens={sub.imagens} apos={i} />
-          </div>
-        ))}
-      </div>
-
-      {sub.versiculosDestaque.length > 0 && (
-        <div className="mt-6 space-y-3">
-          {sub.versiculosDestaque.map((v, i) =>
-            v.texto ? (
-              <figure key={i} className="rounded-xl border-l-2 border-gold/60 bg-bg-2/60 p-4">
-                <HighlightableText
-                  as="blockquote"
-                  paraKey={`${paraBase}#vd${i}`}
-                  className="verse italic text-ink"
-                >
-                  {v.texto}
-                </HighlightableText>
-                <figcaption className="mt-2 text-sm font-medium text-gold">{v.referencia}</figcaption>
-              </figure>
-            ) : (
-              <RefButton key={i} referencia={v.referencia} chip />
-            ),
-          )}
-        </div>
-      )}
+      <Eyebrow>
+        Ponto {bloco.codigo}
+        {bloco.totalPassos > 1 && (
+          <span className="ml-2 font-normal normal-case tracking-normal text-ink-muted">
+            passo {bloco.indicePasso + 1} de {bloco.totalPassos}
+          </span>
+        )}
+      </Eyebrow>
+      <h2 className="mb-4 font-serif text-2xl font-bold leading-snug text-ink">{bloco.titulo}</h2>
+      <PassosIndicador atual={bloco.indicePasso} total={bloco.totalPassos} />
+      <PassoConteudo passo={bloco.passo} paraBase={bloco.id} />
     </Card>
   );
 }

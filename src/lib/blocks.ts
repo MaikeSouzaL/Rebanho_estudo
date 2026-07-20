@@ -1,10 +1,15 @@
-import type { Licao, Subtopico, Versiculo, RevisaoItem, ImagemPosicionada } from './schema';
+import type { Licao, Passo, Versiculo, RevisaoItem } from './schema';
 
 /**
  * Modelo de BLOCOS (Master Prompt §4): a lição vira uma sequência fluida de
  * cartões — nunca "slides". Ordem de leitura:
  * capa → textoAureo → verdadePratica → objetivos → leituraBiblica → introducao
- * → (capitulo → subtopico[]) × 3 → conclusao → revisao.
+ * → (capitulo → subtopico[]) × N → conclusao → revisao.
+ *
+ * GRANULARIDADE: a introdução e cada subtópico podem ser divididos em PASSOS
+ * (um trecho de texto com as imagens do slide de origem). O formato compacto
+ * da Lição 01 é normalizado aqui para "um passo só", de modo que o renderer
+ * lide com uma única forma.
  */
 export type Bloco =
   | { id: string; tipo: 'capa'; rotulo: string; titulo: string; tema: string; numero: number; referenciaBase: string; imagem?: string }
@@ -12,13 +17,44 @@ export type Bloco =
   | { id: string; tipo: 'verdadePratica'; rotulo: string; texto: string }
   | { id: string; tipo: 'objetivos'; rotulo: string; itens: string[] }
   | { id: string; tipo: 'leitura'; rotulo: string; referencia: string; versiculos: Versiculo[] }
-  | { id: string; tipo: 'introducao'; rotulo: string; paragrafos: string[]; imagens: ImagemPosicionada[] }
+  | { id: string; tipo: 'introducao'; rotulo: string; passo: Passo; indicePasso: number; totalPassos: number }
   | { id: string; tipo: 'capitulo'; rotulo: string; numeroRomano: string; titulo: string }
-  | { id: string; tipo: 'subtopico'; rotulo: string; capituloRomano: string; sub: Subtopico }
+  | {
+      id: string;
+      tipo: 'subtopico';
+      rotulo: string;
+      capituloRomano: string;
+      codigo: string;
+      titulo: string;
+      passo: Passo;
+      indicePasso: number;
+      totalPassos: number;
+    }
   | { id: string; tipo: 'conclusao'; rotulo: string; texto: string }
   | { id: string; tipo: 'revisao'; rotulo: string; itens: RevisaoItem[] };
 
 export type BlocoTipo = Bloco['tipo'];
+
+/** Normaliza o formato compacto (paragrafos+imagens) para a forma de passos. */
+function comoPassos(
+  passos: Passo[],
+  compacto: { paragrafos: string[]; imagens: Passo['imagens']; versiculosDestaque: Passo['versiculosDestaque'] },
+): Passo[] {
+  if (passos.length > 0) return passos;
+  if (compacto.paragrafos.length === 0) return [];
+  return [
+    {
+      paragrafos: compacto.paragrafos,
+      imagens: compacto.imagens,
+      versiculosDestaque: compacto.versiculosDestaque,
+    },
+  ];
+}
+
+/** Id estável: com 1 passo mantém o id histórico (preserva anotações já salvas). */
+function idDoPasso(base: string, i: number, total: number): string {
+  return total > 1 ? `${base}-p${i + 1}` : base;
+}
 
 export function buildBlocos(licao: Licao): Bloco[] {
   const blocos: Bloco[] = [];
@@ -54,14 +90,25 @@ export function buildBlocos(licao: Licao): Bloco[] {
     referencia: licao.leituraBiblica.referencia,
     versiculos: licao.leituraBiblica.versiculos,
   });
-  blocos.push({
-    id: 'introducao',
-    tipo: 'introducao',
-    rotulo: 'Introdução',
+
+  // ---------------------------------------------------------- Introdução
+  const passosIntro = comoPassos(licao.passosIntroducao, {
     paragrafos: licao.introducao,
     imagens: licao.imagensIntroducao,
+    versiculosDestaque: [],
+  });
+  passosIntro.forEach((passo, i) => {
+    blocos.push({
+      id: idDoPasso('introducao', i, passosIntro.length),
+      tipo: 'introducao',
+      rotulo: passosIntro.length > 1 ? `Introdução ${i + 1}/${passosIntro.length}` : 'Introdução',
+      passo,
+      indicePasso: i,
+      totalPassos: passosIntro.length,
+    });
   });
 
+  // ------------------------------------------------ Capítulos e subtópicos
   for (const cap of licao.capitulos) {
     blocos.push({
       id: `cap-${cap.numeroRomano}`,
@@ -70,13 +117,25 @@ export function buildBlocos(licao: Licao): Bloco[] {
       numeroRomano: cap.numeroRomano,
       titulo: cap.titulo,
     });
+
     for (const sub of cap.subtopicos) {
-      blocos.push({
-        id: `sub-${sub.codigo}`,
-        tipo: 'subtopico',
-        rotulo: sub.codigo,
-        capituloRomano: cap.numeroRomano,
-        sub,
+      const passos = comoPassos(sub.passos, {
+        paragrafos: sub.paragrafos,
+        imagens: sub.imagens,
+        versiculosDestaque: sub.versiculosDestaque,
+      });
+      passos.forEach((passo, i) => {
+        blocos.push({
+          id: idDoPasso(`sub-${sub.codigo}`, i, passos.length),
+          tipo: 'subtopico',
+          rotulo: passos.length > 1 ? `${sub.codigo} · ${i + 1}/${passos.length}` : sub.codigo,
+          capituloRomano: cap.numeroRomano,
+          codigo: sub.codigo,
+          titulo: sub.titulo,
+          passo,
+          indicePasso: i,
+          totalPassos: passos.length,
+        });
       });
     }
   }
@@ -85,6 +144,15 @@ export function buildBlocos(licao: Licao): Bloco[] {
   blocos.push({ id: 'revisao', tipo: 'revisao', rotulo: 'Revisão', itens: licao.revisao });
 
   return blocos;
+}
+
+/** Texto de um passo (parágrafos + versículos citados), para TTS e busca. */
+function textoDoPasso(passo: Passo): string {
+  const destaques = passo.versiculosDestaque
+    .filter((v) => v.texto)
+    .map((v) => `${v.texto} ${v.referencia}.`)
+    .join(' ');
+  return [passo.paragrafos.join(' '), destaques].filter(Boolean).join(' ');
 }
 
 /** Texto corrido de um bloco — usado pela leitura em voz alta (TTS) e pela busca. */
@@ -103,14 +171,12 @@ export function textoDoBloco(bloco: Bloco): string {
         .map((v) => `${v.numero}. ${v.texto}`)
         .join(' ')}`;
     case 'introducao':
-      return `Introdução: ${bloco.paragrafos.join(' ')}`;
+      return `${bloco.indicePasso === 0 ? 'Introdução: ' : ''}${textoDoPasso(bloco.passo)}`;
     case 'capitulo':
       return `Capítulo ${bloco.numeroRomano}: ${bloco.titulo}`;
     case 'subtopico':
-      return `Ponto ${bloco.sub.codigo}: ${bloco.sub.titulo} ${bloco.sub.paragrafos.join(' ')} ${bloco.sub.versiculosDestaque
-        .filter((v) => v.texto)
-        .map((v) => `${v.texto} ${v.referencia}.`)
-        .join(' ')}`;
+      // o título só é narrado no primeiro passo, para não repetir a cada cartão
+      return `${bloco.indicePasso === 0 ? `Ponto ${bloco.codigo}: ${bloco.titulo} ` : ''}${textoDoPasso(bloco.passo)}`;
     case 'conclusao':
       return `Conclusão: ${bloco.texto}`;
     case 'revisao':

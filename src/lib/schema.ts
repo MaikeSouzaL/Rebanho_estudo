@@ -31,17 +31,43 @@ export const imagemPosicionadaSchema = z.object({
   alt: z.string().optional(),
 });
 
-/** Um subtópico (I.1, I.2, …) dentro de um capítulo. */
-export const subtopicoSchema = z.object({
-  codigo: z.string().min(1), // "I.1"
-  titulo: z.string().min(1),
+/**
+ * Um PASSO: um trecho de texto com as imagens daquele slide de origem.
+ * É a unidade de leitura fina — cada passo vira um cartão navegável próprio.
+ * (Lição 01 usa o formato compacto; Lição 02+ usa passos.)
+ */
+export const passoSchema = z.object({
   paragrafos: z.array(z.string().min(1)).min(1),
-  versiculosDestaque: z.array(versiculoDestaqueSchema).default([]),
-  /** Imagens do(s) slide(s) de origem, posicionadas junto aos parágrafos. */
   imagens: z.array(imagemPosicionadaSchema).default([]),
-  /** OPCIONAL, autoria nova (não é extração). Vazio = não exibe no Modo Professor. */
-  notasProfessor: z.array(z.string().min(1)).default([]),
+  versiculosDestaque: z.array(versiculoDestaqueSchema).default([]),
 });
+
+/** Um subtópico (I.1, I.2, …) dentro de um capítulo. */
+export const subtopicoSchema = z
+  .object({
+    codigo: z.string().min(1), // "I.1"
+    titulo: z.string().min(1),
+
+    // --- Formato COMPACTO: o subtópico inteiro é um cartão só (Lição 01) ---
+    paragrafos: z.array(z.string().min(1)).default([]),
+    versiculosDestaque: z.array(versiculoDestaqueSchema).default([]),
+    /** Imagens do(s) slide(s) de origem, posicionadas junto aos parágrafos. */
+    imagens: z.array(imagemPosicionadaSchema).default([]),
+
+    // --- Formato em PASSOS: um cartão por trecho/slide (Lição 02+) ---
+    passos: z.array(passoSchema).default([]),
+
+    /** OPCIONAL, autoria nova (não é extração). Vazio = não exibe no Modo Professor. */
+    notasProfessor: z.array(z.string().min(1)).default([]),
+  })
+  .superRefine((sub, ctx) => {
+    if (sub.passos.length === 0 && sub.paragrafos.length === 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `Subtópico "${sub.codigo}": informe "paragrafos" (formato compacto) ou "passos".`,
+      });
+    }
+  });
 
 /** Um capítulo (I, II, III). */
 export const capituloSchema = z.object({
@@ -91,6 +117,10 @@ export const licaoSchema = z.object({
 
   introducao: z.array(z.string().min(1)).min(1),
 
+  /** Introdução em PASSOS (Lição 02+). Se preenchida, tem prioridade sobre
+   *  `introducao`/`imagensIntroducao` na hora de montar os blocos. */
+  passosIntroducao: z.array(passoSchema).default([]),
+
   /** Imagens dos slides da introdução, posicionadas por parágrafo. */
   imagensIntroducao: z.array(imagemPosicionadaSchema).default([]),
 
@@ -109,6 +139,7 @@ export type Capitulo = z.infer<typeof capituloSchema>;
 export type Subtopico = z.infer<typeof subtopicoSchema>;
 export type Versiculo = z.infer<typeof versiculoSchema>;
 export type ImagemPosicionada = z.infer<typeof imagemPosicionadaSchema>;
+export type Passo = z.infer<typeof passoSchema>;
 export type VersiculoDestaque = z.infer<typeof versiculoDestaqueSchema>;
 export type RevisaoItem = z.infer<typeof revisaoItemSchema>;
 export type LicaoStatus = z.infer<typeof statusSchema>;
